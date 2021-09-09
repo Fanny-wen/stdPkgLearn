@@ -20,15 +20,16 @@ func main() {
 	//ioReadAtWriteAtDemo()
 	//ioReadFromDemo()
 	//ioWriteToDemo()
+	//ioBytesReadBytesDemo()
 	//ioSeekerDemo()
-	ioByteReaderByteWriterDemo()
+	//ioByteReaderByteWriterDemo()
+	ioSectionReaderDemo()
 }
 
 func ioReadAtWriteAtDemo() {
 	// Hello world [72 101 108 108 111 32 119 111 114 108 100]
-
 	//byteBuffer := bytes.NewBuffer(make([]byte, 128))
-	//byteReader := bytes.NewReader([]byte("Hello world"))
+
 	stringReader := strings.NewReader("Hello world")
 	stringsReaderSlice := make([]byte, 128)
 	stringsReaderN, err := stringReader.ReadAt(stringsReaderSlice, 0)
@@ -47,6 +48,27 @@ func ioReadAtWriteAtDemo() {
 		panic(err)
 	}
 	fmt.Printf("WriteAt: %d\n", n)
+}
+
+func ioSectionReaderDemo() {
+	byteReader := bytes.NewReader([]byte("Hello world"))
+	b := make([]byte, 5)
+	n, _ := byteReader.ReadAt(b, 6)
+	fmt.Println(b[:n]) // [119 111 114 108 100]
+	sr := io.NewSectionReader(byteReader, 6, 5)
+	n, _ = sr.ReadAt(b, 1)
+	fmt.Println(b[:n]) // [111 114 108 100]
+}
+
+func ioLimitedReaderDemo() {
+	// LimitedReader 只实现了 Read 方法（Reader 接口）
+	reader := strings.NewReader("This Is LimitReader Example")
+	limitReader := &io.LimitedReader{R: reader, N: 8}
+	for limitReader.N > 0 {
+		tmp := make([]byte, 2)
+		limitReader.Read(tmp)
+		fmt.Printf("%s", tmp)
+	}
 }
 
 func ioReadFromDemo() {
@@ -73,7 +95,7 @@ func ioWriteToDemo() {
 func ioSeekerDemo() {
 	//b := make([]byte, 10)
 	reader := strings.NewReader("Hello world")
-	reader.Seek(6, 1)
+	reader.Seek(6, 0)
 	//n, err := reader.Read(b)
 	//if err != nil {
 	//	panic(err)
@@ -82,6 +104,23 @@ func ioSeekerDemo() {
 
 	r, size, _ := reader.ReadRune() //ReadRune读取单个UTF-8编码的Unicode字符，并返回以字节为单位的rune及其大小。如果没有可用的字符，则设置err。
 	fmt.Println(r, size)
+	fmt.Println("===")
+	r, size, _ = reader.ReadRune()
+	fmt.Println(r, size)
+	fmt.Println("===")
+	err := reader.UnreadRune() // UnreadRune取消读取ReadRune返回的最后一个符文
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("===")
+	r, size, _ = reader.ReadRune()
+	fmt.Println(r, size)
+}
+
+func ioBytesReadBytesDemo() {
+	buffer := bytes.NewBuffer([]byte("Hello world")) // ReadBytes读取，直到输入中第一次出现delim，返回一个包含该分隔符之前的数据的切片
+	line, _ := buffer.ReadBytes(111)
+	fmt.Println(line) // [104 101 108 108 111]
 }
 
 func ioByteReaderByteWriterDemo() {
