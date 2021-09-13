@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"os"
 	"strings"
@@ -16,7 +17,9 @@ func main() {
 	//bufioPeekDemo()
 	//bufioBufferedDemo()
 	//bufioDiscardDemo()
-	bufioScannerDemo()
+	//bufioScannerDemo()
+	//bufioSplitDemo()
+	bufioWriteToDemo()
 }
 
 func bufioReadSliceDemo() {
@@ -98,14 +101,14 @@ func bufioPeekDemo() {
 }
 
 // 返回可从缓冲区读取的字节数
-func bufioBufferedDemo(){
+func bufioBufferedDemo() {
 	reader := bufio.NewReaderSize(strings.NewReader("http://studygolang.com. \nIt is the home of gophers"), 16)
 	n := reader.Buffered()
 	fmt.Println(n)
 }
 
 // 跳过n个字节
-func bufioDiscardDemo(){
+func bufioDiscardDemo() {
 	reader := bufio.NewReaderSize(strings.NewReader("hello world"), 6)
 	n, err := reader.Discard(7)
 	if err != nil {
@@ -121,12 +124,42 @@ func bufioDiscardDemo(){
 	fmt.Println(string(ch))
 }
 
-func bufioScannerDemo(){
+func bufioWriteToDemo() {
+	buffer := bytes.NewBuffer([]byte("hello"))
+	buffer2 := bytes.NewBuffer(make([]byte, 6))
+	reader := bufio.NewReader(buffer)
+	_, _ = reader.ReadByte()
+	n, err := reader.WriteTo(buffer2)
+	if err != nil {
+		_, _ = fmt.Fprintf(os.Stderr, "reader WriteTo failed, err:%v\n", err)
+	}
+	fmt.Printf("reader WriteTo success, n:%d\n", n)
+	fmt.Println(buffer.Bytes())
+	fmt.Println(buffer2.Bytes())
+}
+
+func bufioScannerDemo() {
+	// 默认的split(分词行为) 是 ScanLines
 	scanner := bufio.NewScanner(os.Stdin)
-	for scanner.Scan(){
+	for scanner.Scan() {
 		fmt.Printf("scanner Text: %v\n", scanner.Text())
 	}
-	if err := scanner.Err(); err != nil{
+	if err := scanner.Err(); err != nil {
 		fmt.Fprintf(os.Stderr, "reading standard input: %v\n", err)
 	}
+}
+
+func bufioSplitDemo() {
+	// 可以通过Split方法为Scanner实例设置分词行为
+	const input = "This is The Golang Standard Library.\nWelcome you!"
+	scanner := bufio.NewScanner(strings.NewReader(input))
+	scanner.Split(bufio.ScanWords)
+	count := 0
+	for scanner.Scan() {
+		count++
+	}
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintln(os.Stderr, "reading input:", err)
+	}
+	fmt.Println(count)
 }
