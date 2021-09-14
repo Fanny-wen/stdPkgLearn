@@ -19,12 +19,14 @@ func main() {
 	//bufioDiscardDemo()
 	//bufioScannerDemo()
 	//bufioSplitDemo()
-	bufioWriteToDemo()
+	//bufioWriteToDemo()
+	//bufioWriterDemo()
+	bufioWriterFlushDemo()
 }
 
 func bufioReadSliceDemo() {
 	reader := bufio.NewReader(strings.NewReader("http://studygolang.com. \nIt is the home of gophers"))
-	// ReadSlice 返回的 []byte 是指向 Reader 中的 buffer ，而不是 copy 一份返回
+	// ReadSlice 返回的 []byte 是指向 Reader 中的 buffer ，而不是 copy 一份返回，也正因为如此，通常我们会使用 ReadBytes 或 ReadString
 	line, err := reader.ReadSlice('\n')
 	if err != nil {
 		fmt.Printf("readSlice failed, err: %v\n", err)
@@ -37,7 +39,6 @@ func bufioReadSliceDemo() {
 }
 
 func bufioReadBytesDmeo() {
-	// 返回的 []byte 是指向 Reader 中的 buffer，而不是 copy 一份返回，也正因为如此，通常我们会使用 ReadBytes 或 ReadString
 	reader := bufio.NewReader(strings.NewReader("http://studygolang.com. \nIt is the home of gophers"))
 	line, err := reader.ReadBytes('\n')
 	if err != nil {
@@ -162,4 +163,23 @@ func bufioSplitDemo() {
 		fmt.Fprintln(os.Stderr, "reading input:", err)
 	}
 	fmt.Println(count)
+}
+
+func bufioWriterDemo() {
+	writer := bufio.NewWriter(bytes.NewBuffer([]byte("12345")))
+	n := writer.Size()
+	a := writer.Available() // Available 方法获取缓存中还未使用的字节数（缓存大小 - 字段 n 的值）
+	b := writer.Buffered()  // Buffered 方法获取写入当前缓存中的字节数（字段 n 的值）
+	fmt.Printf("writer's size: %d, available: %d, buffered: %d\n", n, a, b)
+}
+
+// 将缓存中的所有数据写入底层的 io.Writer 对象中
+func bufioWriterFlushDemo() {
+	buffer := bytes.NewBuffer([]byte("hello world"))
+	writer := bufio.NewWriter(buffer)
+	_ = writer.WriteByte('1')
+	fmt.Println(writer.Available())
+	_ = writer.Flush()
+	fmt.Println(buffer.Bytes())
+	fmt.Println(buffer.String())
 }
