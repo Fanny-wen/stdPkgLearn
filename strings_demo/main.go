@@ -24,7 +24,8 @@ func main() {
 	//stringsTitleDemo()
 	//stringsTrimDemo()
 	//stringsReplacerDemo()
-	stringsReaderDemo()
+	//stringsReaderDemo()
+	stringsBuilderDemo()
 }
 
 /*
@@ -106,7 +107,7 @@ func stringsSplitDemo() {
 	// 带 N 的方法可以通过最后一个参数 n 控制返回的结果中的 slice 中的元素个数，当 n < 0 时，返回所有的子字符串；当 n == 0 时，返回的结果是 nil；
 	// 当 n > 0 时，表示返回的 slice 中最多只有 n 个元素，其中，最后一个元素不会分割
 	bar2 := strings.SplitN("hello, world, hi, girl,h", ",", 2)
-	fmt.Println(bar2) // hello  world, hi, girl,h]
+	fmt.Println(bar2) // [hello  world, hi, girl,h]
 
 	fmt.Println("=======================================================")
 
@@ -279,6 +280,7 @@ func stringsReplacerDemo() {
 	bar1 := replacer.Replace("This is <b>HTML</b>!")
 	fmt.Printf("%q\n", bar1)
 
+	// WriteString在替换之后将结果写入 io.Writer 中
 	n, err := replacer.WriteString(os.Stdout, "<div>hello</div>\n")
 	if err != nil {
 		fmt.Fprintf(os.Stdout, "err: %v\n", err)
@@ -289,10 +291,32 @@ func stringsReplacerDemo() {
 /*
 Reader 类型
 */
-func stringsReaderDemo(){
+func stringsReaderDemo() {
 	reader := strings.NewReader("hello world")
 	fmt.Println(reader.Size())
-	_, _ =reader.WriteTo(os.Stdout)
+	_, _ = reader.WriteTo(os.Stdout)
 	fmt.Println()
 	fmt.Println(reader.Len())
+}
+
+/*
+Builder 类型
+*/
+func stringsBuilderDemo() {
+	builder := &strings.Builder{}
+	_ = builder.WriteByte('7')
+	n, _ := builder.WriteRune('夕')
+	fmt.Println(n)
+	n, _ = builder.Write([]byte("Hello, World"))
+	fmt.Println(n)
+	n, _ = builder.WriteString("你好，世界")
+	fmt.Println(n)
+	fmt.Println(builder.Len())
+	fmt.Println(builder.Cap())
+	builder.Grow(100)
+	fmt.Println(builder.Len())
+	fmt.Println(builder.Cap())
+	fmt.Println(builder.String())
+	builder.Reset()
+	fmt.Println(builder.String())
 }
