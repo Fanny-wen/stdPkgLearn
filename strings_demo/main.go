@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"unicode"
 )
@@ -15,7 +16,15 @@ func main() {
 	//stringsSplitDemo()
 	//stringsHasPrefix_HasSuffixDemo()
 	//stringsIndexDemo()
-	stringsJoinDemo()
+	//stringsJoinDemo()
+	//stringsRepeatDemo()
+	//stringsMapDemo()
+	//stringsReplaceDemo()
+	//stringsLoweUpperDemo()
+	//stringsTitleDemo()
+	//stringsTrimDemo()
+	//stringsReplacerDemo()
+	stringsReaderDemo()
 }
 
 /*
@@ -158,4 +167,132 @@ func stringsJoinDemo() {
 	fmt.Printf("%q\n", bar1) // ["a" "b" "c" "d"]
 	bar2 := strings.Join(bar1, "_")
 	fmt.Printf("%q\n", bar2) // "a_b_c_d"
+}
+
+/*
+字符串重复几次
+*/
+func stringsRepeatDemo() {
+	bar := strings.Repeat("hello world", 3)
+	fmt.Println("ni hao" + bar) // ni haohello worldhello worldhello world
+}
+
+/*
+字符替换
+*/
+func stringsMapDemo() {
+	// Map 函数，将 s 的每一个字符按照 mapping 的规则做映射替换，如果 mapping 返回值 <0 ，则舍弃该字符。
+	//该方法只能对每一个字符做处理，但处理方式很灵活，可以方便过滤，筛选汉字等
+	mapping := func(r rune) rune {
+		switch {
+		case r >= 'A' && r <= 'Z': // 大写字母转小写
+			return r + 32
+		case r >= 'a' && r <= 'z': // 小写字母不处理
+			return r
+		case unicode.Is(unicode.Han, r): // 汉字换行
+			return '\n'
+		}
+		return -1 // 过滤所有非字母、汉字的字符
+	}
+	fmt.Println(strings.Map(mapping, "Hello WORLD, 你好 世界, Hello Golang"))
+}
+
+/*
+字符串子串替换
+*/
+func stringsReplaceDemo() {
+	// 用 new 替换 s 中的 old，一共替换 n 个。
+	// 如果 n < 0，则不限制替换次数，即全部替换
+	bar1 := strings.Replace("hello world, hello golang, ni hao", "h", "H", 2)
+	fmt.Printf("%q\n", bar1) // "Hello world, Hello golang, ni hao"
+
+	// ReplaceAll内部直接调用了函数 Replace(s, old, new , -1)
+	bar2 := strings.ReplaceAll("hello world", "llo", "LLO")
+	fmt.Printf("%q\n", bar2) // "heLLO world"
+}
+
+/*
+大小写转换
+*/
+func stringsLoweUpperDemo() {
+	bar1 := strings.ToUpper("hello world")
+	fmt.Printf("hello world ToUpper -> %s\n", bar1) // hello world ToUpper -> HELLO WORLD
+	bar2 := strings.ToLower(bar1)
+	fmt.Printf("HELLO WORLD ToLower -> %s\n", bar2) // HELLO WORLD ToLower -> hello world
+
+	fmt.Println(strings.ToUpperSpecial(unicode.TurkishCase, "hello world")) // HELLO WORLD
+	fmt.Println(strings.ToLowerSpecial(unicode.TurkishCase, "HELLO WORLD")) // hello world
+}
+
+/*
+标题处理
+*/
+func stringsTitleDemo() {
+	// 其中 Title 会将 s 每个单词的首字母大写，不处理该单词的后续字符
+	bar1 := strings.Title("hello world")
+	fmt.Println(bar1) // Hello World
+
+	// ToTitle 将 s 的每个字母大写
+	bar2 := strings.ToTitle("hello world")
+	fmt.Println(bar2) // HELLO WORLD
+
+	//ToTitleSpecial 将 s 的每个字母大写，并且会将一些特殊字母转换为其对应的特殊大写字母
+	bar3 := strings.ToTitleSpecial(unicode.TurkishCase, "dünyanın ilk borsa yapısı Aizonai kabul edilir")
+	fmt.Println(bar3)
+}
+
+/*
+修剪
+*/
+func stringsTrimDemo() {
+	// 将 s 左侧和右侧中匹配 cutset 中的任一字符的字符去掉
+	bar1 := strings.Trim("hello world hel", "helxv")
+	fmt.Printf("%q\n", bar1) // "o world "
+
+	// 将 s 左侧的匹配 cutset 中的任一字符的字符去掉
+	bar2 := strings.TrimLeft("hell1 1o world hel", "helxv")
+	fmt.Printf("%q\n", bar2) // "1 1o world hel"
+
+	// 将 s 右侧的匹配 cutset 中的任一字符的字符去掉
+	bar3 := strings.TrimRight("hello world hel", "helxv")
+	fmt.Printf("%q\n", bar3) // "hello world "
+
+	// 如果 s 的前缀为 prefix 则返回去掉前缀后的 string , 否则 s 没有变化。
+	bar4 := strings.TrimPrefix("hello world hel", "hel")
+	fmt.Printf("%q\n", bar4) // "lo world hel"
+
+	// 如果 s 的后缀为 suffix 则返回去掉后缀后的 string , 否则 s 没有变化。
+	bar5 := strings.TrimSuffix("hello world hel", "hel")
+	fmt.Printf("%q\n", bar5) // "hello world "
+
+	// 将 s 左侧和右侧的间隔符去掉。常见间隔符包括：'\t', '\n', '\v', '\f', '\r', ' ', U+0085 (NEL)
+	bar6 := strings.TrimSpace("\n\thello world\n\t")
+	fmt.Printf("%q\n", bar6) // "hello world"
+}
+
+/*
+Replacer 类型
+*/
+func stringsReplacerDemo() {
+	// 不定参数 oldnew 是 old-new 对，即进行多个替换。如果 oldnew 长度与奇数，会导致 panic.
+	replacer := strings.NewReplacer("<", "&lt", ">", "&gt")
+	bar1 := replacer.Replace("This is <b>HTML</b>!")
+	fmt.Printf("%q\n", bar1)
+
+	n, err := replacer.WriteString(os.Stdout, "<div>hello</div>\n")
+	if err != nil {
+		fmt.Fprintf(os.Stdout, "err: %v\n", err)
+	}
+	fmt.Println(n)
+}
+
+/*
+Reader 类型
+*/
+func stringsReaderDemo(){
+	reader := strings.NewReader("hello world")
+	fmt.Println(reader.Size())
+	_, _ =reader.WriteTo(os.Stdout)
+	fmt.Println()
+	fmt.Println(reader.Len())
 }
