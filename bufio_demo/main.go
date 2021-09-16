@@ -11,7 +11,7 @@ import (
 
 func main() {
 	//bufioReadSliceDemo()
-	//bufioReadBytesDmeo()
+	bufioReadBytesDmeo()
 	//bufioReadStringDemo()
 	//bufioReadLineDemo()
 	//bufioPeekDemo()
@@ -21,7 +21,7 @@ func main() {
 	//bufioSplitDemo()
 	//bufioWriteToDemo()
 	//bufioWriterDemo()
-	bufioWriterFlushDemo()
+	//bufioWriterFlushDemo()
 }
 
 func bufioReadSliceDemo() {
