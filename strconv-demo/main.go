@@ -6,12 +6,39 @@ import (
 )
 
 func main() {
-	//stringToIntDemo()
-	//intToStringDemo()
-	//parseDemo()
-	//formatDemo()
-	//quoteDemo()
-	appendDemo()
+	//strToIntDemo()
+	//intToStrDemo()
+	strconvQuoteDemo()
+}
+
+func strToIntDemo() {
+	bar1, _ := strconv.Atoi("123")
+	fmt.Println(bar1) // 123
+
+	// base 的取值为 2~36，如果 base 的值为 0，则会根据字符串的前缀来确定 base 的值
+	// 参数 bitSize 表示的是整数取值范围，或者说整数的具体类型。取值 0、8、16、32 和 64 分别代表 int、int8、int16、int32 和 int64。
+	bar2, _ := strconv.ParseInt("-1010", 2, 64) // -10
+	fmt.Println(bar2)
+
+	bar3, _ := strconv.ParseUint("1010", 2, 0) //10
+	fmt.Println(bar3)
+}
+
+func intToStrDemo() {
+	bar1 := strconv.Itoa(123)
+	fmt.Println(bar1) // 123
+
+	bar2 := strconv.FormatInt(-123, 10)
+	fmt.Println(bar2) // -123
+
+	bar3 := strconv.FormatUint(10, 2)
+	fmt.Println(bar3) // 1010
+}
+
+func strconvQuoteDemo() {
+	// Quote返回一个双引号的Go字符串字面量，表示s
+	s := strconv.Quote(`I'm your father`)
+	fmt.Printf("%s\n", s) // "I'm your father"
 }
 
 func stringToIntDemo() {
