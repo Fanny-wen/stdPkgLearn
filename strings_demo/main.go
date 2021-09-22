@@ -7,6 +7,18 @@ import (
 	"unicode"
 )
 
+/*
+type stringStruct struct {
+	str unsafe.Pointer
+	len int
+}
+GO 中的 string类型一般是指向字符串字面量
+
+字符串字面量存储位置是在虚拟内存分区的只读段上面，而不是堆或栈上
+
+因此，GO 的 string 类型不可修改的
+*/
+
 func main() {
 	//stringsCompareDemo()
 	//stringsEqualFoldDemo()
