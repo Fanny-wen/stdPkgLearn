@@ -13,7 +13,8 @@ func main() {
 	//operationTimeDemo()
 	//timeFormatDemo()
 	//parseStringToTimeDemo()
-	timeRoundTruncateDemo()
+	//timeRoundTruncateDemo()
+	timeTimerDemo()
 }
 
 func timeNowDemo() {
@@ -132,4 +133,22 @@ func timeRoundTruncateDemo() {
 	fmt.Println("==============================")
 	t2, _ := time.ParseInLocation("2006-01-02 15:04:05", t.Format("2006-01-02 15:00:00"), time.Local)
 	fmt.Println(t2)
+}
+
+func timeTimerDemo() {
+	start := time.Now()
+	timer := time.AfterFunc(3 * time.Second, func() {
+		fmt.Println("after func callback, elaspe:", time.Now().Sub(start))
+	})
+
+	time.Sleep(1 * time.Second)
+	//time.Sleep(3*time.Second)
+	// Reset 在 Timer 还未触发时返回 true；触发了或 Stop 了，返回 false
+	if timer.Reset(3 * time.Second) {
+		fmt.Println("timer has not trigger!")
+	} else {
+		fmt.Println("timer had expired or stop!")
+	}
+
+	time.Sleep(10 * time.Second)
 }
