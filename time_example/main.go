@@ -12,7 +12,9 @@ func main() {
 	//timestampToTimeDemo(time.Now().Unix())
 	//operationTimeDemo()
 	//timeFormatDemo()
-	parseStringToTimeDemo()
+	//parseStringToTimeDemo()
+	//timeRoundTruncateDemo()
+	timeTimerDemo()
 }
 
 func timeNowDemo() {
@@ -35,6 +37,7 @@ func timestampDemo() {
 	// 时间戳
 	now := time.Now()
 	timestamp1 := now.Unix()
+	now.IsZero()
 	timestamp2 := now.UnixNano()
 	fmt.Printf("current timestamp: %v\n", timestamp1)
 	fmt.Printf("current nano timestamp: %v\n", timestamp2)
@@ -92,24 +95,60 @@ func timeFormatDemo() {
 
 func parseStringToTimeDemo() {
 	// Parse
+	// time.Now() 的时区是 time.Local，而 time.Parse 解析出来的时区却是 time.UTC（可以通过 Time.Location() 函数知道是哪个时区）。在中国，它们相差 8 小时。
 	timeObj, err := time.Parse("2006-01-02 15:04", "2012-12-12 04:40")
-	if err != nil{
+	if err != nil {
 		fmt.Printf("time.Parse failed, err: %v\n", err)
 		return
 	}
-	fmt.Printf("time.Parse success, value: %v\n", timeObj)
+	fmt.Printf("time.Parse success, value: %v, 时区: %q\n", timeObj, timeObj.Location())
 	fmt.Println("======================================================")
 
 	// ParseInLocation
 	loc, err := time.LoadLocation("Asia/Shanghai")
-	if err != nil{
+	if err != nil {
 		fmt.Printf("time.LoadLocation failed, err: %v\n", err)
 		return
 	}
 	timeObj, err = time.ParseInLocation("2006-01-02 15:04", "2016-12-22 11:04", loc)
-	if err != nil{
+	if err != nil {
 		fmt.Printf("time.ParseInLocation failed, err: %v\n", err)
 		return
 	}
-	fmt.Printf("time.ParseInLocation success, value: %v\n", timeObj)
+	fmt.Printf("time.ParseInLocation success, value: %v, 时区: %q\n", timeObj, timeObj.Location())
+}
+
+func timeRoundTruncateDemo() {
+	t, _ := time.ParseInLocation("2006-01-02 15:04:05", "2021-09-23 22:25:35", time.Local)
+	fmt.Println(t)
+	// 整点（向下取整）
+	fmt.Println(t.Truncate(1 * time.Hour))
+	// 整点（最接近）
+	fmt.Println(t.Round(1 * time.Hour))
+	// 整分（向下取整）
+	fmt.Println(t.Truncate(1 * time.Minute))
+	// 整分（最接近）
+	fmt.Println(t.Round(1 * time.Minute))
+
+	fmt.Println("==============================")
+	t2, _ := time.ParseInLocation("2006-01-02 15:04:05", t.Format("2006-01-02 15:00:00"), time.Local)
+	fmt.Println(t2)
+}
+
+func timeTimerDemo() {
+	start := time.Now()
+	timer := time.AfterFunc(3 * time.Second, func() {
+		fmt.Println("after func callback, elaspe:", time.Now().Sub(start))
+	})
+
+	time.Sleep(1 * time.Second)
+	//time.Sleep(3*time.Second)
+	// Reset 在 Timer 还未触发时返回 true；触发了或 Stop 了，返回 false
+	if timer.Reset(3 * time.Second) {
+		fmt.Println("timer has not trigger!")
+	} else {
+		fmt.Println("timer had expired or stop!")
+	}
+
+	time.Sleep(10 * time.Second)
 }

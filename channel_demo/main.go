@@ -1,8 +1,8 @@
 package main
 
 import (
-	myPool "channel_demo/pool"
 	"fmt"
+	myPool "github.com/stdPkgLearn/channel_demo/pool"
 )
 
 func init() {
