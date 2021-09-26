@@ -9,7 +9,9 @@ import (
 func main() {
 	//osOpenFileDemo()
 	//osReadDemo()
-	osWriteDemo()
+	//osWriteDemo()
+	//osTruncateDemo()
+	osFileInfoDemo()
 }
 
 func osOpenFileDemo() {
@@ -39,7 +41,7 @@ ReadAt 从指定的位置（相对于文件开始位置）读取长度为 len(b)
 
 Read 和 ReadAt 的区别：前者从文件当前偏移量处读，且会改变文件当前的偏移量；
 而后者从 off 指定的位置开始读，且不会改变文件当前偏移量。
- */
+*/
 func osReadDemo() {
 	b := make([]byte, 128)
 	fileObj, err := os.Open("./hello.txt")
@@ -75,8 +77,7 @@ func osReadDemo() {
 	fmt.Println(ret)
 }
 
-
-func osWriteDemo(){
+func osWriteDemo() {
 	b := make([]byte, 128)
 	fileObj1, err := os.Open("./hello.txt")
 	n, err := fileObj1.Read(b)
@@ -96,7 +97,7 @@ func osWriteDemo(){
 		return
 	}
 	defer fileObj2.Close()
-	n ,err = fileObj2.Write(b)
+	n, err = fileObj2.Write(b)
 	if err != nil {
 		fmt.Fprintf(os.Stdout, "write file faild, err: %v\n", err)
 		return
@@ -109,4 +110,48 @@ func osWriteDemo(){
 		return
 	}
 	fmt.Printf("writeAt success, write %d byte\n", n)
+}
+
+/*
+osTruncateDemo: 截断文件
+调用 `File.Truncate` 前，需要先以  可写方式  打开操作文件，该方法不会修改文件偏移量。
+*/
+func osTruncateDemo() {
+	fileObj, err := os.OpenFile("./hello_2.txt", os.O_RDWR, 0666)
+	if err != nil {
+		fmt.Printf("open file failed, err: %v\n", err)
+		return
+	}
+	defer fileObj.Close()
+	err = fileObj.Truncate(148)
+	if err != nil {
+		fmt.Printf("truncate file failed, err:%v\n", err)
+		return
+	}
+	ret, _ := fileObj.Seek(0, os.SEEK_CUR)
+	fmt.Println(ret)
+}
+
+/*
+	type FileInfo interface {
+		Name() string       // 文件的名字（不含扩展名）
+		Size() int64        // 普通文件返回值表示其大小；其他文件的返回值含义各系统不同
+		Mode() FileMode     // 文件的模式位
+		ModTime() time.Time // 文件的修改时间
+		IsDir() bool        // 等价于 Mode().IsDir()
+		Sys() interface{}   // 底层数据来源（可以返回 nil）
+	}
+*/
+func osFileInfoDemo() {
+	fileObj, err := os.Open("./hello_2.txt")
+	if err != nil {
+		fmt.Printf("open file failed, err:%v\n", err)
+		return
+	}
+	fileInfo, _ := fileObj.Stat()
+	fmt.Println(fileInfo.Name())
+	sys := fileInfo.Sys()
+	fmt.Println(sys)
+	//stat := sys.(*syscall.Stat_t)
+	//fmt.Println(time.Unix(stat.Atimespec.Unix()))
 }
