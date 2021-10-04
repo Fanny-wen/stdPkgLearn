@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"time"
 )
 
 func main() {
@@ -11,7 +12,9 @@ func main() {
 	//osReadDemo()
 	//osWriteDemo()
 	//osTruncateDemo()
-	osFileInfoDemo()
+	//osFileInfoDemo()
+	//osChtimesDemo()
+	osChmodDemo()
 }
 
 func osOpenFileDemo() {
@@ -154,4 +157,70 @@ func osFileInfoDemo() {
 	fmt.Println(sys)
 	//stat := sys.(*syscall.Stat_t)
 	//fmt.Println(time.Unix(stat.Atimespec.Unix()))
+	fmt.Printf("%#v\n", fileInfo)
+
+	fmt.Println("======================")
+
+	fileObj2, _ := os.Lstat("./hello_2.txt")
+	fmt.Printf("%#v\n", fileObj2)
+
+	fmt.Println("======================")
+
+	fileObj3, _ := os.Stat("./hello_2.txt")
+	fmt.Printf("%#v\n", fileObj3)
+}
+
+/*
+改变文件时间戳
+可以显式改变文件的访问时间和修改时间
+*/
+
+func osChtimesDemo() {
+	fileInfo, err := os.Stat("./hello_2.txt")
+	if err != nil {
+		fmt.Fprintf(os.Stdout, "os Stat failed, err:%v\n", err)
+		return
+	}
+	fmt.Printf("%#v\n", fileInfo)
+	fmt.Printf("%#v\n", fileInfo.ModTime())
+	fmt.Printf("%#v\n", fileInfo.Sys())
+	_ = os.Chtimes("./hello_2.txt", time.Now(), time.Now())
+	fmt.Println("=================================")
+	fmt.Printf("%#v\n", fileInfo)
+	fmt.Printf("%#v\n", fileInfo.ModTime())
+	fmt.Printf("%#v\n", fileInfo.Sys())
+}
+
+/*
+每个文件都有一个与之关联的用户 ID（UID）和组 ID（GID），籍此可以判定文件的属主和属组。
+系统调用 chown、lchown 和 fchown 可用来改变文件的属主和属组
+*/
+func osChownDemo() {
+	fileObj, err := os.Open("./hello_2.txt")
+	if err != nil {
+		fmt.Printf("open file failed, err: %v\n", err)
+		return
+	}
+	fileObj.Chown(12, 12)
+	//_ = os.Chown("./hello_2.txt", 12, 12)
+	//_ = os.Lchown("./hello_2.txt", 12, 12)
+}
+
+/*
+权限
+*/
+func osChmodDemo() {
+	f, err := os.Open("./hello_2.txt")
+	isPem := os.IsPermission(err)
+	if isPem {
+		return
+	} else {
+		fmt.Printf("open file faild, because permission? %v\n", isPem) // false
+	}
+	fi, _ := f.Stat()
+	fmt.Printf("文件权限: %v\n", fi.Mode())
+
+	_ = f.Chmod(0777)
+	fi, err = f.Stat()
+	fmt.Printf("修改之后的文件权限: %v\n", fi.Mode())
 }
