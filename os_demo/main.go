@@ -14,7 +14,12 @@ func main() {
 	//osTruncateDemo()
 	//osFileInfoDemo()
 	//osChtimesDemo()
-	osChmodDemo()
+	//osChmodDemo()
+	//osRenameDemo()
+	//osMkdirDemo()
+	//osRemoveDemo()
+	osReaddirnamesDemo()
+	osReaddirDemo()
 }
 
 func osOpenFileDemo() {
@@ -221,6 +226,60 @@ func osChmodDemo() {
 	fmt.Printf("文件权限: %v\n", fi.Mode())
 
 	_ = f.Chmod(0777)
-	fi, err = f.Stat()
+	fi, _ = f.Stat()
 	fmt.Printf("修改之后的文件权限: %v\n", fi.Mode())
+}
+
+/*
+目录与链接
+*/
+
+// 更改文件名
+func osRenameDemo() {
+	_ = os.Rename("./hello.txt", "./hello_new.txt")
+}
+
+// 创建和移除目录
+func osMkdirDemo() {
+	_ = os.Mkdir("./build", 0777)
+	_ = os.MkdirAll("./build/dist/jyj", 0777)
+}
+
+func osRemoveDemo() {
+	_ = os.Remove("./build/dist/jyj")
+	_ = os.RemoveAll("./build")
+}
+
+/*
+读目录
+Readdirnames 读取目录 f 的内容，返回一个最多有 n 个成员的[]string，切片成员为目录中文件对象的名字，采用目录顺序。
+对本函数的下一次调用会返回上一次调用未读取的内容的信息
+
+如果 n>0，Readdirnames 函数会返回一个最多 n 个成员的切片, 如果到达了目录 f 的结尾，返回值 err 会是 io.EOF
+如果 n<=0，Readdirnames 函数返回目录中剩余所有文件对象的名字构成的切片
+*/
+func osReaddirnamesDemo() {
+	f, _ := os.Open("./src")
+	n, _ := f.Readdirnames(-1)
+	fmt.Printf("readdirname: %v\n", n) // [channel_demo crawler_demo flag_example fmt_example func hello http_example io_demo method os_example runtime_demo stdPkgLearn strconv_example sync_demo time_example]
+	fmt.Println("=========================")
+
+	// 对本函数的下一次调用会返回上一次调用未读取的内容的信息
+	n, err := f.Readdirnames(100) // []
+	if err != nil {
+		fmt.Printf("readdirnames failed, err: %v\n", err)
+	}
+	fmt.Printf("readdirname: %v\n", n)
+}
+
+/*
+Readdir 内部会调用 Readdirnames，将得到的 names 构造路径，通过 Lstat 构造出 []FileInfo。
+*/
+func osReaddirDemo() {
+	f, _ := os.Open("./src")
+	fi, _ := f.Readdir(-1)
+	fmt.Printf("%v\n", fi)
+	for _, v := range fi {
+		fmt.Printf("name: %v, size: %v\n", v.Name(), v.Size())
+	}
 }
