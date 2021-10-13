@@ -17,13 +17,15 @@ func main() {
 	//pathSplitListDemo()
 	//pathCleanDemo()
 	//pathGlobDemo()
-	pathWalkDemo()
+	//pathWalkDemo()
+	//pathVolumeNameDemo()
+	//pathEvalSymlinkDemo()
+	pathSlashDemo()
 }
 
 /*
 path.Dir()
 Dir 返回路径中除去最后一个路径元素的部分，即该路径最后一个元素所在的目录。
-
 
 filepath包提供了兼容操作系统的路径操作。它使用正斜杠还是反斜杠取决于操作系统
 filepath.Dir()
@@ -144,8 +146,9 @@ filepath.SplitList()
 功能：按os.PathListSeparator即(;)將路徑進行分割
 */
 func pathSplitListDemo() {
-	ss1 := filepath.SplitList("D:\\GoPath\\src\\;stdPkgLearn\\os_path_demo\\main.go")
-	fmt.Println(ss1)
+	s := os.Getenv("GOPATH")
+	ss1 := filepath.SplitList(s)
+	fmt.Println(ss1) // [D:\GoPath C:\Users\W1998\go]
 }
 
 /*
@@ -201,4 +204,37 @@ func pathWalkDemo() {
 		}
 		return nil
 	})
+}
+
+/*
+filepath.VolumeName()
+返回路徑字符串中的卷名
+*/
+func pathVolumeNameDemo() {
+	s := filepath.VolumeName("D:\\GoPath\\src\\stdPkgLearn\\os_path_demo\\main.go")
+	fmt.Println(s) // D:
+}
+
+/*
+filepath.EvalSymlinks()
+功能：返回软链指向的路径
+*/
+func pathEvalSymlinkDemo() {
+	s, err := filepath.EvalSymlinks("./temp_db.json.lnk")
+	if err != nil {
+		fmt.Printf("filepath EvalSymlinks failed, err: %v\n", err)
+	}
+	fmt.Println(s)
+}
+
+/*
+filepath.FromSlash() 將 path 中的 ‘/’ 轉換為系統相關的路徑分隔符
+filepath.ToSlash()	將path中平臺相關的路徑分隔符轉換成’/’
+*/
+func pathSlashDemo() {
+	s1 := filepath.FromSlash("/var/log/celery/celery_err.log")
+	fmt.Println(s1) // \var\log\celery\celery_err.log
+
+	s2 := filepath.ToSlash("D:\\GoPath\\src\\stdPkgLearn\\os_path_demo\\main.go")
+	fmt.Println(s2) // D:/GoPath/src/stdPkgLearn/os_path_demo/main.go
 }

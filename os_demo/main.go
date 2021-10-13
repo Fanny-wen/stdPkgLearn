@@ -18,8 +18,10 @@ func main() {
 	//osRenameDemo()
 	//osMkdirDemo()
 	//osRemoveDemo()
-	osReaddirnamesDemo()
-	osReaddirDemo()
+	//osReaddirnamesDemo()
+	//osReaddirDemo()
+	//osEnvDemo()
+	osGetpagesizeDemo()
 }
 
 func osOpenFileDemo() {
@@ -149,6 +151,8 @@ func osTruncateDemo() {
 		IsDir() bool        // 等价于 Mode().IsDir()
 		Sys() interface{}   // 底层数据来源（可以返回 nil）
 	}
+Stat()返回有关目标文件的信息，
+Lstat()返回有关符号链接(symbolic link)本身的信息。
 */
 func osFileInfoDemo() {
 	fileObj, err := os.Open("./hello_2.txt")
@@ -282,4 +286,41 @@ func osReaddirDemo() {
 	for _, v := range fi {
 		fmt.Printf("name: %v, size: %v\n", v.Name(), v.Size())
 	}
+}
+
+/*
+os.Setenv() 设置环境变量。
+os.Getenv() 获取环境变量。
+os.Unsetenv() 删除环境变量，如果我们尝试使用该环境值来获取该环境值os.Getenv()，则会返回一个空值。
+os.LookupEnv() 判断环境变量是否存在。如果系统中不存在该变量，则返回值将为空，并且布尔值将为false。否则，它将返回值（可以为空），并且布尔值为true。
+os.Clearenv() 清空所有环境变量
+os.ExpandEnv() 根据环境变量的值替换字符串中的 ${var} 或 $var。如果不存在任何环境变量，则将使用空字符串替换它。
+os.Environ()：以key = value的形式返回包含所有环境变量的字符串的一部分。
+*/
+func osEnvDemo() {
+	os.Setenv("name", "jyj")
+	os.Setenv("age", "23")
+	defer os.Unsetenv("name")
+	//defer os.Unsetenv("age")
+	defer os.Clearenv()
+	fmt.Printf("%s is %s years old\n", os.Getenv("name"), os.Getenv("age")) // jyj is 14 years old
+
+	s1, b1 := os.LookupEnv("name")
+	s2, b2 := os.LookupEnv("name1")
+	fmt.Println(s1, b1) // jyj true
+	fmt.Println(s2, b2) // "" false
+	fmt.Println(os.ExpandEnv("$name is $age years old"))
+
+	for i, env := range os.Environ() {
+		fmt.Println(i, env)
+	}
+}
+
+/*
+os.Getpagesize()
+Getpagesize返回底层系统的内存页大小。
+*/
+func osGetpagesizeDemo() {
+	i := os.Getpagesize()
+	fmt.Println(i) // 4096
 }
