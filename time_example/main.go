@@ -9,12 +9,13 @@ import (
 func main() {
 	//timeNowDemo()
 	//timestampDemo()
-	//timestampToTimeDemo(time.Now().Unix())
+	timestampToTimeDemo(time.Now().Unix(), 0)
+	timestampToTimeDemo(0, time.Now().UnixNano())
 	//operationTimeDemo()
 	//timeFormatDemo()
 	//parseStringToTimeDemo()
 	//timeRoundTruncateDemo()
-	timeTimerDemo()
+	//timeTimerDemo()
 }
 
 func timeNowDemo() {
@@ -44,9 +45,9 @@ func timestampDemo() {
 	fmt.Println("======================================================")
 }
 
-func timestampToTimeDemo(timestamp int64) {
+func timestampToTimeDemo(timestamp, nsectimestamp int64) {
 	// 时间戳转为时间格式
-	timeObj := time.Unix(timestamp, 0)
+	timeObj := time.Unix(timestamp, nsectimestamp)
 	fmt.Println(timeObj)                 // 2021-08-18 10:37:52 +0800 CST
 	fmt.Printf("timeObj: %T\n", timeObj) // timeObj: time.Time
 	fmt.Println("======================================================")

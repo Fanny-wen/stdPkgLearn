@@ -23,7 +23,7 @@ func main() {
 	//stringsCompareDemo()
 	//stringsEqualFoldDemo()
 	//stringsContains_ContainsAny_ContainsRuneDemo()
-	//stringsCountDemo()
+	stringsCountDemo()
 	//stringsFieldsDemo()
 	//stringsSplitDemo()
 	//stringsHasPrefix_HasSuffixDemo()
@@ -37,7 +37,7 @@ func main() {
 	//stringsTrimDemo()
 	//stringsReplacerDemo()
 	//stringsReaderDemo()
-	stringsBuilderDemo()
+	//stringsBuilderDemo()
 }
 
 /*
@@ -84,10 +84,10 @@ func stringsContains_ContainsAny_ContainsRuneDemo() {
 func stringsCountDemo() {
 	// 在 Go 中，查找子串出现次数即字符串模式匹配，实现的是 Rabin-Karp 算法
 	bar := strings.Count("hello world, hi girl, hello golang", "h")
-	fmt.Println(bar)
-	// 特别说明一下的是当 sep 为空时，Count 的返回值是：utf8.RuneCountInString(s) + 1
+	fmt.Println(bar) // 3
+	// 特别说明一下的是当 substr 为空时，Count 的返回值是：utf8.RuneCountInString(s) + 1
 	fmt.Println("Golang中文社区")
-	fmt.Println(strings.Count("Golang中文社区", ""))
+	fmt.Println(strings.Count("Golang中文社区", "")) // 11
 }
 
 /*
@@ -195,7 +195,7 @@ func stringsRepeatDemo() {
 */
 func stringsMapDemo() {
 	// Map 函数，将 s 的每一个字符按照 mapping 的规则做映射替换，如果 mapping 返回值 <0 ，则舍弃该字符。
-	//该方法只能对每一个字符做处理，但处理方式很灵活，可以方便过滤，筛选汉字等
+	// 该方法只能对每一个字符做处理，但处理方式很灵活，可以方便过滤，筛选汉字等
 	mapping := func(r rune) rune {
 		switch {
 		case r >= 'A' && r <= 'Z': // 大写字母转小写
