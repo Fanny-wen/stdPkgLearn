@@ -17,7 +17,8 @@ panic: runtime error: invalid memory address or nil pointer dereference
 
 func main() {
 	//mutexDemo()
-	rwMutexDemo()
+	//rwMutexDemo()
+	onceDemo()
 }
 
 /*
@@ -67,4 +68,26 @@ func write() {
 	defer wg.Done()
 	//time.Sleep(3 * time.Second)
 	a = 100
+}
+
+/*
+sync.once{}
+sync.Once 被用于控制变量的初始化，这个变量的读写满足如下三个条件：
+1. 当且仅当第一次访问某个变量时，进行初始化（写）；
+2. 变量初始化过程中，所有读都被阻塞，直到初始化完成；
+3. 变量仅初始化一次，初始化完成后驻留在内存里。
+*/
+func onceDemo() {
+	once := new(sync.Once)
+	defWg := sync.WaitGroup{}
+	for i := 1; i <= 10; i++ {
+		defWg.Add(1)
+		go func(i int) {
+			defer defWg.Done()
+			once.Do(func() {
+				fmt.Printf("sync once do %d times, i: %[1]d\n", i)
+			})
+		}(i)
+	}
+	defWg.Wait()
 }
