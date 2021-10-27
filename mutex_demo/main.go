@@ -18,7 +18,8 @@ panic: runtime error: invalid memory address or nil pointer dereference
 func main() {
 	//mutexDemo()
 	//rwMutexDemo()
-	onceDemo()
+	//onceDemo()
+	condDemo()
 }
 
 /*
@@ -90,4 +91,27 @@ func onceDemo() {
 		}(i)
 	}
 	defWg.Wait()
+}
+
+/*
+sync.cond{}
+*/
+func condDemo() {
+	var clocker = new(sync.Mutex)
+	var cond = sync.NewCond(clocker)
+	//var cwp = sync.WaitGroup{}
+	var cwp = new(sync.WaitGroup)
+	for i := 0; i < 5; i++ {
+		go func(x int) {
+			cwp.Add(1)
+			cond.L.Lock() // 获取锁
+			cond.Wait()   // 等待通知  暂时阻塞
+			defer cwp.Done()
+			defer cond.L.Unlock() // 释放锁，不释放的话将只会有一次输出
+			fmt.Println(x)
+		}(i)
+	}
+	fmt.Println("start all")
+	cond.Broadcast() // 下发给所有等待的 goroutine
+	cwp.Wait()
 }
