@@ -48,7 +48,7 @@ func unsafePointerDemo() {
 }
 
 /*
-string 与 []byte 的强转换
+	string 与 []byte 的强转换
 */
 func String2Bytes(s string) []byte {
 	sh := (*reflect.StringHeader)(unsafe.Pointer(&s))
@@ -68,13 +68,13 @@ func Bytes2String(b []byte) string {
 unsafe.Sizeof()
 */
 func unsafeSizeofDemo() {
-	fmt.Println(unsafe.Sizeof(true))
-	fmt.Println(unsafe.Sizeof(int8(0)))
-	fmt.Println(unsafe.Sizeof(int16(10)))
-	fmt.Println(unsafe.Sizeof(int(10)))
-	fmt.Println(unsafe.Sizeof(int32(190)))
-	fmt.Println(unsafe.Sizeof("asong"))
-	fmt.Println(unsafe.Sizeof([]int{1, 3, 4}))
+	fmt.Println(unsafe.Sizeof(true))           // 1
+	fmt.Println(unsafe.Sizeof(int8(0)))        // 1
+	fmt.Println(unsafe.Sizeof(int16(10)))      // 2
+	fmt.Println(unsafe.Sizeof(int(10)))        // 8
+	fmt.Println(unsafe.Sizeof(int32(190)))     // 4
+	fmt.Println(unsafe.Sizeof("asong"))        // 16
+	fmt.Println(unsafe.Sizeof([]int{1, 3, 4})) //24
 }
 
 /*
@@ -95,7 +95,7 @@ func unsafeOffsetofDemo() {
 }
 
 /*
-unsafe.Offsetof()
+unsafe.Alignof()
 获取变量的对齐值
 */
 func unsafeAlignofDemo() {
@@ -108,12 +108,12 @@ func unsafeAlignofDemo() {
 	var m map[string]string
 	var p *int32
 
-	fmt.Printf("bool: %d\n", unsafe.Alignof(b))
-	fmt.Printf("int8: %d\n", unsafe.Alignof(i8))
-	fmt.Printf("int16: %d\n", unsafe.Alignof(i16))
-	fmt.Printf("int64: %d\n", unsafe.Alignof(i64))
-	fmt.Printf("int32: %d\n", unsafe.Alignof(f32))
-	fmt.Printf("string: %d\n", unsafe.Alignof(s))
-	fmt.Printf("map[string]string: %d\n", unsafe.Alignof(m))
-	fmt.Printf("*int32: %d\n", unsafe.Alignof(p))
+	fmt.Printf("bool: %d\n", unsafe.Alignof(b))              // 1
+	fmt.Printf("int8: %d\n", unsafe.Alignof(i8))             // 1
+	fmt.Printf("int16: %d\n", unsafe.Alignof(i16))           // 2
+	fmt.Printf("int64: %d\n", unsafe.Alignof(i64))           // 8
+	fmt.Printf("float32: %d\n", unsafe.Alignof(f32))         // 4
+	fmt.Printf("string: %d\n", unsafe.Alignof(s))            // 8
+	fmt.Printf("map[string]string: %d\n", unsafe.Alignof(m)) // 8
+	fmt.Printf("*int32: %d\n", unsafe.Alignof(p))            // 8
 }
