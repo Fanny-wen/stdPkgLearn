@@ -8,7 +8,11 @@ import (
 
 func main() {
 	//addTDemo()
-	CompareAndSwapTDemo()
+	//CompareAndSwapTDemo()
+	//SwapTDemo()
+	//LoadTDemo()
+	//StoreTDemo()
+	ValueDemo()
 }
 
 /*
@@ -47,24 +51,38 @@ func CompareAndSwapTDemo() {
 /*
 	SwapT系列交换值，并返回旧值
 */
-func SwapT() {
-
+func SwapTDemo() {
+	var count1, count2 int64 = int64(123), int64(245)
+	old := atomic.SwapInt64(&count1, count2)
+	fmt.Printf("count1's new value: %d\n", count1) // count1's new value: 245
+	fmt.Printf("count2's value: %d\n", count2)     // count2's value: 245
+	fmt.Printf("old: %d\n", old)                   // old: 123
 }
 
 /*
 	LoadT 系列获取值
 */
 func LoadTDemo() {
-
+	var count int64 = int64(123)
+	v := atomic.LoadInt64(&count)
+	fmt.Printf("v's value: %d\n", v) // v's value: 123
 }
 
 /*
 	StoreT 系列更新值
 */
 func StoreTDemo() {
-
+	var count int64 = int64(123)
+	atomic.StoreInt64(&count, 355)
+	fmt.Printf("count's new value:%d\n", count) // count's new value:355
 }
 
 /*
 	Value 存储器，支持Load,Store
 */
+func ValueDemo() {
+	var v atomic.Value
+	v.Store(123)
+	x := v.Load()
+	fmt.Printf("x's type: %T, x's value: %[1]v\n", x) // x's type: int, x's value: 123
+}
