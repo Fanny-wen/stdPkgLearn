@@ -27,7 +27,7 @@ func main() {
 	queryRaws(0)
 	//insert("咲", "13532565342")
 	//update("森咲", "18888889999", 4)
-	delete(8)
+	//delete(8)
 }
 
 func initDB() (err error) {
