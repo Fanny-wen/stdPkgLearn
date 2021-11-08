@@ -1,0 +1,18 @@
+[GIN-debug] GET    /                         --> main.init.0.func2 (2 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (2 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (2 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (2 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (2 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (2 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (2 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (2 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Mon, 08 Nov 2021 16:54:19 CST] "POST /student HTTP/1.1 201 0s "PostmanRuntime/7.26.8" "

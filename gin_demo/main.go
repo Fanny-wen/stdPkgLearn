@@ -3,14 +3,48 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"io"
 	"net/http"
+	"os"
 	"strings"
+	"time"
 )
 
+type StudentInfo struct {
+	Name     string    `json:"name" form:"name" xml:"name" binding:"required"`
+	Age      uint8     `json:"age" form:"age" xml:"age" binding:"required"`
+	Sex      string    `json:"sex" form:"sex" xml:"sex" binding:"required"`
+	Birthday time.Time `json:"birthday" form:"birthday" xml:"birthday" binding:"required" time_format:"2006-01-02 15:4:5"`
+}
+
 // 1.创建路由
-var r = gin.Default()
+//var r = gin.Default()
+var r = gin.New()
 
 func init() {
+	//gin.DisableConsoleColor()
+	gin.ForceConsoleColor()
+	//f, _ := os.OpenFile("gin.log", os.O_WRONLY|os.O_APPEND|os.O_APPEND, 0777)
+	f, _ := os.Create("gin.log")
+	// Use the following code if you need to write the logs to file and console at the same time.
+	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+
+	r.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
+
+		// your custom format
+		return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
+			param.ClientIP,
+			param.TimeStamp.Format(time.RFC1123),
+			param.Method,
+			param.Path,
+			param.Request.Proto,
+			param.StatusCode,
+			param.Latency,
+			param.Request.UserAgent(),
+			param.ErrorMessage,
+		)
+	}))
+
 	// 2.绑定路由规则，执行的函数
 	// gin.Context，封装了request和response
 	r.GET("/", func(c *gin.Context) {
@@ -162,5 +196,17 @@ func RedirectDemo(r *gin.Engine) {
 	r.GET("/redirect", func(c *gin.Context) {
 		//c.Redirect(http.StatusMovedPermanently, "http://www.baidu.com/")
 		c.Redirect(http.StatusMovedPermanently, "/404")
+	})
+}
+
+// ParseJsonDemo 解析json数据
+func ParseJsonDemo(r *gin.Engine) {
+	r.POST("/studentInfoJson", func(c *gin.Context) {
+		var si StudentInfo
+		if err := c.BindJSON(&si); err !=nil{
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		fmt.Printf("%v\n", si)
 	})
 }
