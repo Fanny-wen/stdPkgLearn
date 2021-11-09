@@ -12,9 +12,9 @@ import (
 
 type StudentInfo struct {
 	Name     string    `json:"name" form:"name" xml:"name" binding:"required"`
-	Age      uint8     `json:"age" form:"age" xml:"age" binding:"required"`
-	Sex      string    `json:"sex" form:"sex" xml:"sex" binding:"required"`
-	Birthday time.Time `json:"birthday" form:"birthday" xml:"birthday" binding:"required" time_format:"2006-01-02 15:4:5"`
+	Age      int       `json:"age" form:"age" xml:"age" binding:"required"`
+	Gender   string    `json:"gender" form:"gender" xml:"gender" binding:"required"`
+	Birthday time.Time `json:"birthday" form:"birthday" xml:"birthday" binding:"required" time_format:"2006-01-02 15:04:05"`
 }
 
 // 1.创建路由
@@ -24,10 +24,15 @@ var r = gin.New()
 func init() {
 	//gin.DisableConsoleColor()
 	gin.ForceConsoleColor()
-	//f, _ := os.OpenFile("gin.log", os.O_WRONLY|os.O_APPEND|os.O_APPEND, 0777)
-	f, _ := os.Create("gin.log")
+	f, _ := os.OpenFile("gin.log", os.O_WRONLY|os.O_APPEND|os.O_APPEND, 0777)
+	//f, _ := os.Create("gin.log")
 	// Use the following code if you need to write the logs to file and console at the same time.
 	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+
+	// Set gin mode & Get gin mode
+	gin.SetMode(gin.DebugMode)
+	modeName := gin.Mode()
+	fmt.Printf("gin mode name: %s\n", modeName)
 
 	r.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
 
@@ -59,6 +64,8 @@ func init() {
 	UrlParameter(r)
 	FormParameter(r)
 	RedirectDemo(r)
+	ParseJsonDemo(r)
+	ParseJson2StructDemo(r)
 	// Grouping routes
 	upload := r.Group("/upload")
 	{
@@ -125,7 +132,7 @@ func NORouterDemo(r *gin.Engine) {
 // PageNotFindDemo  404页面
 func PageNotFindDemo(r *gin.Engine) {
 	r.LoadHTMLGlob("./*")
-	r.GET("/404", func(c *gin.Context) {
+	r.Any("/404", func(c *gin.Context) {
 		c.HTML(http.StatusNotFound, "404.html", gin.H{
 			"title": "404",
 		})
@@ -164,7 +171,7 @@ func FormParameter(r *gin.Engine) {
 		types := c.DefaultPostForm("type", "post")
 		name := c.PostForm("name")
 		pwd := c.PostForm("password")
-		hobby, _ := c.GetPostFormArray("hobby")
+		hobby, _ := c.GetPostFormArray("hobby[]")
 		parent := c.PostFormMap("parent")
 		fmt.Printf("name: %v, pwd: %s, hobby: %v, parent: %v, type: %s\n", name, pwd, hobby, parent, types)
 		c.JSON(http.StatusCreated, gin.H{"name": name, "pwd": pwd, "hobby": hobby, "parent": parent})
@@ -235,7 +242,7 @@ func UploadMultipleDemo(c *gin.Context) {
 
 // RedirectDemo 重定向
 func RedirectDemo(r *gin.Engine) {
-	r.GET("/redirect", func(c *gin.Context) {
+	r.Any("/redirect", func(c *gin.Context) {
 		//c.Redirect(http.StatusMovedPermanently, "http://www.baidu.com/")
 		c.Redirect(http.StatusMovedPermanently, "/404")
 	})
@@ -244,11 +251,31 @@ func RedirectDemo(r *gin.Engine) {
 // ParseJsonDemo 解析json数据
 func ParseJsonDemo(r *gin.Engine) {
 	r.POST("/studentInfoJson", func(c *gin.Context) {
-		var si StudentInfo
-		if err := c.BindJSON(&si); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		json := make(map[string]interface{})
+		if err := c.BindJSON(&json); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		fmt.Printf("%v\n", si)
+		c.JSON(http.StatusOK, gin.H{
+			"data": map[string]interface{}{
+				"json": json,
+			},
+		})
+	})
+}
+
+// ParseJson2StructDemo 解析json to struct t数据
+func ParseJson2StructDemo(r *gin.Engine) {
+	r.POST("/studentInfoJson2Struct", func(c *gin.Context) {
+		si := &StudentInfo{}
+		if err := c.BindJSON(&si); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"data": map[string]interface{}{
+				"studentInfo": si,
+			},
+		})
 	})
 }
