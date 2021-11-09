@@ -45,6 +45,9 @@ func init() {
 		)
 	}))
 
+	r.Use(MyMiddleWare1())
+	r.Use(MyMiddleWare2())
+
 	// 2.绑定路由规则，执行的函数
 	// gin.Context，封装了request和response
 	r.GET("/", func(c *gin.Context) {
@@ -61,6 +64,45 @@ func init() {
 	{
 		upload.POST("", UploadDemo)
 		upload.POST("/multiple", UploadMultipleDemo)
+	}
+}
+
+func MyMiddleWare1() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		fmt.Println("=======================")
+		// 拿到Header里的 token
+		fmt.Printf("%v %[1]T\n", strings.Join(c.Request.Header["Authorization"], ""))
+		fmt.Println("=======================")
+
+		fmt.Printf("中间件1 -- 请求前\n")
+		t1 := time.Now()
+		c.Next()
+		fmt.Printf("中间件1 -- 请求后\n")
+		t2 := time.Now()
+		fmt.Println(t2.Sub(t1))
+	}
+}
+func MyMiddleWare2() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		fmt.Printf("中间件2 -- 请求前\n")
+		t1 := time.Now()
+		c.Next()
+		fmt.Printf("中间件2 -- 请求后\n")
+		t2 := time.Now()
+		fmt.Println(t2.Sub(t1))
+	}
+}
+
+// MyMiddleWithGoRoutine 在中间件中使用Goroutine
+func MyMiddleWithGoRoutine() gin.HandlerFunc {
+	return func(context *gin.Context) {
+		// 复制上下文
+		cpContext := context.Copy()
+		go func() {
+			time.Sleep(3 * time.Second)
+			fmt.Println(cpContext.Request.URL.Path)
+		}()
+		context.Next()
 	}
 }
 
@@ -203,7 +245,7 @@ func RedirectDemo(r *gin.Engine) {
 func ParseJsonDemo(r *gin.Engine) {
 	r.POST("/studentInfoJson", func(c *gin.Context) {
 		var si StudentInfo
-		if err := c.BindJSON(&si); err !=nil{
+		if err := c.BindJSON(&si); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
