@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	_ "github.com/sirupsen/logrus"
 	"io"
 	"net/http"
 	"os"
@@ -25,7 +26,6 @@ func init() {
 	//gin.DisableConsoleColor()
 	gin.ForceConsoleColor()
 	f, _ := os.OpenFile("gin.log", os.O_WRONLY|os.O_APPEND|os.O_APPEND, 0777)
-	//f, _ := os.Create("gin.log")
 	// Use the following code if you need to write the logs to file and console at the same time.
 	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 
@@ -53,10 +53,20 @@ func init() {
 	r.Use(MyMiddleWare1())
 	r.Use(MyMiddleWare2())
 
+	r.Use(gin.BasicAuth(gin.Accounts{
+		"admin": "123456",
+		"user1": "111111",
+		"user2": "111111",
+	}))
+
 	// 2.绑定路由规则，执行的函数
 	// gin.Context，封装了request和response
 	r.GET("/", func(c *gin.Context) {
+		user := c.MustGet(gin.AuthUserKey).(string)
+		fmt.Printf("%v\n", c.Keys)      // map[user:admin]
+		fmt.Printf("%v, %[1]T\n", user) // "admin" string
 		c.String(http.StatusOK, "hello World!")
+
 	})
 	PageNotFindDemo(r)
 	NORouterDemo(r)

@@ -15,3 +15,1172 @@
 [GIN-debug] POST   /upload                   --> main.UploadDemo (4 handlers)
 [GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (4 handlers)
 [GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:22:54 CST] "GET / HTTP/1.1 401 679.8µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:23:00 CST] "GET / HTTP/1.1 200 231.9µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:23:00 CST] "GET /favicon.ico HTTP/1.1 301 658.1µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:23:00 CST] "GET /404 HTTP/1.1 404 988.4µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:23:05 CST] "GET / HTTP/1.1 200 654.7µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:23:08 CST] "GET / HTTP/1.1 200 628.1µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:23:13 CST] "GET / HTTP/1.1 200 923.2µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:23:15 CST] "GET / HTTP/1.1 200 857.7µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:23:15 CST] "GET /favicon.ico HTTP/1.1 301 539.4µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:23:15 CST] "GET /404 HTTP/1.1 404 1.0391ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- main.go
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:23:39 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:00 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:03 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:03 CST] "GET /favicon.ico HTTP/1.1 301 645.8µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:03 CST] "GET /404 HTTP/1.1 404 1.4887ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:03 CST] "GET / HTTP/1.1 200 469.6µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:03 CST] "GET /favicon.ico HTTP/1.1 301 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:03 CST] "GET /404 HTTP/1.1 404 1.6034ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:03 CST] "GET / HTTP/1.1 200 583.2µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:03 CST] "GET /favicon.ico HTTP/1.1 301 143.8µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:03 CST] "GET /404 HTTP/1.1 404 1.4488ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:03 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:04 CST] "GET /favicon.ico HTTP/1.1 301 334.9µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:04 CST] "GET /404 HTTP/1.1 404 1.3602ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:04 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:04 CST] "GET /favicon.ico HTTP/1.1 301 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:04 CST] "GET /404 HTTP/1.1 404 1.4657ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:04 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:04 CST] "GET /favicon.ico HTTP/1.1 301 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:04 CST] "GET /404 HTTP/1.1 404 721.7µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:09 CST] "GET / HTTP/1.1 200 187.1µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:09 CST] "GET /favicon.ico HTTP/1.1 301 574.6µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:09 CST] "GET /404 HTTP/1.1 404 1.4076ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:13 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:19 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:38 CST] "GET / HTTP/1.1 401 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:24:45 CST] "GET / HTTP/1.1 200 607.7µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:25:02 CST] "GET / HTTP/1.1 200 227.9µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:25:02 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:25:02 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:30:14 CST] "GET / HTTP/1.1 200 513.2µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:30:31 CST] "GET / HTTP/1.1 401 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:30:37 CST] "GET / HTTP/1.1 401 207µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:30:49 CST] "GET / HTTP/1.1 200 162.4µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+	- gin.log
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:31:31 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:33:40 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:33:43 CST] "GET / HTTP/1.1 200 873.1µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:33:44 CST] "GET / HTTP/1.1 200 995.6µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:33:50 CST] "GET / HTTP/1.1 200 551.1µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:33:51 CST] "GET / HTTP/1.1 200 855.8µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:33:59 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:34:10 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:34:19 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:34:32 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:34:45 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+	- gin.log
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:09 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:10 CST] "GET / HTTP/1.1 200 310.1µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:10 CST] "GET /favicon.ico HTTP/1.1 301 890µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:10 CST] "GET /404 HTTP/1.1 404 648.9µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:10 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:10 CST] "GET /favicon.ico HTTP/1.1 301 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:10 CST] "GET /404 HTTP/1.1 404 630.2µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /favicon.ico HTTP/1.1 301 196.3µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /404 HTTP/1.1 404 1.7466ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /favicon.ico HTTP/1.1 301 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /404 HTTP/1.1 404 997.2µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /favicon.ico HTTP/1.1 301 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /404 HTTP/1.1 404 997.4µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /favicon.ico HTTP/1.1 301 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /404 HTTP/1.1 404 996.8µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /favicon.ico HTTP/1.1 301 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /404 HTTP/1.1 404 999.6µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /favicon.ico HTTP/1.1 301 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:11 CST] "GET /404 HTTP/1.1 404 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:19 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:51 CST] "GET / HTTP/1.1 200 0s "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+127.0.0.1 - [Wed, 10 Nov 2021 14:36:57 CST] "GET / HTTP/1.1 200 849.7µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+	- gin.log
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- main.go
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- main.go
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- 
+	- 404.html
+	- gin.log
+	- go.mod
+	- go.sum
+	- main.go
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+	- gin.log
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000
+127.0.0.1 - [Sat, 13 Nov 2021 00:53:53 CST] "GET /config HTTP/1.1 401 87.8µs "PostmanRuntime/7.26.8" "
+[GIN-debug] GET    /                         --> main.init.0.func2 (5 handlers)
+[GIN-debug] Loaded HTML Templates (6): 
+	- go.mod
+	- go.sum
+	- main.go
+	- 
+	- 404.html
+	- gin.log
+
+[GIN-debug] GET    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] POST   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PUT    /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] DELETE /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /404                      --> main.PageNotFindDemo.func1 (5 handlers)
+[GIN-debug] GET    /user/:name/*action       --> main.ApiParameter.func1 (5 handlers)
+[GIN-debug] GET    /welcome                  --> main.UrlParameter.func1 (5 handlers)
+[GIN-debug] POST   /student                  --> main.FormParameter.func1 (5 handlers)
+[GIN-debug] GET    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PUT    /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] PATCH  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] HEAD   /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] OPTIONS /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] DELETE /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] CONNECT /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] TRACE  /redirect                 --> main.RedirectDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson          --> main.ParseJsonDemo.func1 (5 handlers)
+[GIN-debug] POST   /studentInfoJson2Struct   --> main.ParseJson2StructDemo.func1 (5 handlers)
+[GIN-debug] POST   /upload                   --> main.UploadDemo (5 handlers)
+[GIN-debug] POST   /upload/multiple          --> main.UploadMultipleDemo (5 handlers)
+[GIN-debug] Listening and serving HTTP on localhost:8000

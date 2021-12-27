@@ -287,7 +287,7 @@ func stringsTrimDemo() {
 Replacer 类型
 */
 func stringsReplacerDemo() {
-	// 不定参数 oldnew 是 old-new 对，即进行多个替换。如果 oldnew 长度与奇数，会导致 panic.
+	// 不定参数 oldnew 是 old-new 对，即进行多个替换。如果 oldnew 长度为奇数，会导致 panic.
 	replacer := strings.NewReplacer("<", "&lt", ">", "&gt")
 	bar1 := replacer.Replace("This is <b>HTML</b>!")
 	fmt.Printf("%q\n", bar1)
