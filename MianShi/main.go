@@ -16,6 +16,12 @@ import (
 // 不能使用短变量声明设置结构体字段值。
 
 func main() {
+	c := make(chan struct{})
+	close(c)
+	fmt.Println(<-c)
+}
+
+func dfc() {
 	var wg = sync.WaitGroup{}
 	var dCount uint64
 	var fCount uint64
