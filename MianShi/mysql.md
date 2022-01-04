@@ -330,8 +330,3 @@ mysql> update T set c=c+1 where ID=2;
 ```bash
 	关系数据库中, 对某一列或多个列的值进行排序的一种存储结构
 ```
-
-
-
-
-
