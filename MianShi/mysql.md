@@ -24,10 +24,6 @@
 	答: 把一系列sql语句作为一个整体进行操作
 ```
 
-
-
-
-
 ### 数据库事务的四大特性
 
 ```
@@ -48,6 +44,8 @@ D: 持久性 Durability, 事务一旦结束, 数据就持久到数据库
 4. Serializable 串性化
 	读用读锁, 写用写锁, 读锁和写锁互斥
 ```
+
+
 
 ### mysql表锁&行锁&页面锁(锁的粒度)
 
@@ -270,8 +268,6 @@ D: 持久性 Durability, 事务一旦结束, 数据就持久到数据库
 
 
 
-
-
 ### SQL查询语句是怎么执行的
 
 ```bash
@@ -282,8 +278,6 @@ mysql> select * from T where ID=10；
 
 
 <img src="https://static001.geekbang.org/resource/image/0d/d9/0d2070e8f84c4801adbfa03bda1f98d9.png" style="zoom: 33%;" />
-
-
 
 
 
@@ -330,3 +324,13 @@ mysql> update T set c=c+1 where ID=2;
 ```bash
 	关系数据库中, 对某一列或多个列的值进行排序的一种存储结构
 ```
+
+
+
+### char和varchar的区别
+
+```
+	char: 定长, 不足长度的字符串在其后补空字符, 范围是0~255
+	varchar: 不定长, 范围是64k(64k是整行的长度, 需要考虑其他column)
+```
+
