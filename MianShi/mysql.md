@@ -334,3 +334,11 @@ mysql> update T set c=c+1 where ID=2;
 	varchar: 不定长, 范围是64k(64k是整行的长度, 需要考虑其他column)
 ```
 
+
+
+### 缓冲池 buffer pool
+
+```bash
+
+```
+
