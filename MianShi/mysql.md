@@ -47,7 +47,7 @@ D: 持久性 Durability, 事务一旦结束, 数据就持久到数据库
 
 
 
-### mysql表锁&行锁&页面锁(锁的粒度)
+### mysql全局锁&表锁&行锁&页面锁(锁的粒度)
 
 ```
 1. 表级别锁
@@ -69,6 +69,9 @@ D: 持久性 Durability, 事务一旦结束, 数据就持久到数据库
 		
 3. 页面锁
 
+4. 全局锁
+	1): 全局读锁: Flush tables with read lock (FTWRL), 全局锁的典型使用场景是, 做全库逻辑备份.
+
 注1: myisam: 只支持表锁, 不支持行锁.  innodb: 支持表锁和行锁, 如果基于索引查询数据则是行锁, 否则就是表锁
 
 
@@ -83,7 +86,7 @@ D: 持久性 Durability, 事务一旦结束, 数据就持久到数据库
 	答: 当并发系统中不同线程出现循环资源依赖, 涉及的线程都在等待别的线程释放资源时, 就会导致线程都进入无限等待的状态, 称为死锁
 	
 注1: 死锁的两种处理策略:
-		1). 直接进入等待, 知道超时, 这个超时时间可以通过参数innodb_lock_wait_timeout来设置
+		1). 直接进入等待, 直到超时, 这个超时时间可以通过参数innodb_lock_wait_timeout来设置
 		2). 发起死锁检测, 发现死锁后, 主动回滚死锁链条中的某一个事务, 让其他事务得以继续执行, 将参数				innodb_deadlock_detect设置为on，表示开启这个逻辑
 		
 注2: 等待超时处理死锁的机制是什么? 有什么局限?
@@ -117,7 +120,7 @@ D: 持久性 Durability, 事务一旦结束, 数据就持久到数据库
 	乐观锁其实是对共享资源的一种概念, 认为在操作资源的过程中不会有其他人操作资源,所以不加锁;采用的是MVCC的方式机制实现;通过给表加上额外的字段(version),在查询时会将version一起读出去,如果修改了数据,就在原来的version上+1,提交时和当前版本的数据进行对比,如果大于则予以更新, 否则认识是过期的数据.
 	
 2: 悲观锁
-	悲观锁和乐观锁相反,认为一定会有其他人来修改数据,所以都数据全部都加上锁.
+	悲观锁和乐观锁相反,认为一定会有其他人来修改数据,所以数据全部都加上锁.
 ```
 
 
@@ -147,18 +150,6 @@ D: 持久性 Durability, 事务一旦结束, 数据就持久到数据库
 幻读的重点在于 insert
 
 所以说不可重复读和幻读最大的区别，就在于如何通过锁机制来解决他们产生的问题.
-```
-
-
-
-### 悲观锁和乐观锁
-
-```
-悲观锁:
-	指的是对数据被外界修改持保守态度, 在悲观锁情况下, 为了保证事务的隔离性, 读取记录时需要加锁, 无法同时被其他事务修改; 修改时也需要加锁, 无法被其他事务读取.
-	
-乐观锁:
-	乐观锁大多是基于数据版本(Version)来实现的. 通过给数据库表增加一个"version"字段, 读取数据时, 会把版本号一同读出, 更新时会将版本号加1, 此时将提交的数据版本和数据库内对应记录的当前版本进行对比, 如果提交的版本号大于数据库当前版本则予以更新, 否则认为是过期数据.
 ```
 
 
@@ -212,7 +203,7 @@ D: 持久性 Durability, 事务一旦结束, 数据就持久到数据库
 
 ```
 1. Innodb支持事务, MyiSum不支持事务
-2. Innodb支持表级锁和行级锁, MyiSum只支持行级锁
+2. Innodb支持表级锁和行级锁, MyiSum只支持表级锁
 3. Innodb支持外键, MyiSum不支持外键
 4. MyiSum允许没有主键和索引的表存在, 索引都是保存行的地址; Innodb如果没有设置主键或非空唯一索引, 会自动生成6字节的主键
 5. 存储结构方面: 
@@ -322,8 +313,90 @@ mysql> update T set c=c+1 where ID=2;
 ### 索引
 
 ```bash
-	关系数据库中, 对某一列或多个列的值进行排序的一种存储结构
+	答: 关系数据库中, 对某一列或多个列的值进行排序的一种存储结构
+	
+1. 唯一索引和普通索引区别?
+	1):	普通索引可以重复, 唯一索引和主键一样不可以写入重复的值
+	2): 对于数据的修改, 普通索引可以使用change buffer, 而唯一索引不行
 ```
+
+
+
+### buffer pool & change buffer
+
+```m
+1. buffer pool:
+	innodb内存结构:	buffer pool 缓冲池是主内存中的一个区域, 用于innodb访问表和索引数据时进行缓存. 缓冲池允许直接从内存中访问经常使用的数据, 从而加快处理速度. 一种常见的降低磁盘访问的机制, 通常以页为单位缓存数据, 常见管理算法是LRU(least recently used)[1].
+
+2. change buffer]
+	对于读请求, 缓冲池能够减少磁盘IO, 提升性能. 那写请求呢?
+	情况一: 要修改的数据刚好在缓冲池中,直接修改缓冲池中的数据,一次内存操作,再写入redo log, 一次io操作.
+	情况二: 要修改的数据不在缓冲池, 需要从磁盘中加载到内存中, 一次io操作, 修改缓冲池的页, 一次内存操作, 写入redo log, 一次io操作.
+
+	情况二没有命中缓冲池的时候，至少产生一次磁盘IO，对于写多读少的业务场景，是否还有优化的空间呢？
+	
+	答: change buffer.
+	加入 change buffer后, 情况二变为: 在change buffer 中记录这个操作, 一次内存操作, 写入redo log, 一次io操作
+
+
+注1: LRU, mysql的LRU和传统的LRU有所区别, 主要解决了 预读失效和缓冲池污染问题.
+
+	传统LRU: 把入缓冲池的页放到LRU的头部，作为最近访问的元素，从而最晚被淘汰。
+	这里又分两种情况： 
+	1）页已经在缓冲池里，那就只做“移至”LRU头部的动作，而没有页被淘汰；
+	2）页不在缓冲池里，除了做“放入”LRU头部的动作，还要做“淘汰”LRU尾部页的动作；
+	
+	预读失效: 由于预读(Read-Ahead)，提前把页放入了缓冲池，但最终MySQL并没有从页中读取数据，称为预读失效.
+	如何解决: 1) 让预读失败的页，停留在缓冲池LRU里的时间尽可能短
+			2) 让真正被读取的页，才挪到缓冲池LRU的头部
+	
+	mysql LRU: 
+		1) 将LRU分为两个部分(新生代new sublist, 老生代old sublist);
+		2) 新老生代收尾相连，即：新生代的尾(tail)连接着老生代的头(head);
+		3) 新页（例如被预读的页）加入缓冲池时，只加入到老生代头部; 如果数据真正被读取（预读成功），才会加入到新生代的头部; 如果数据没有被读取，则会比新生代里的“热数据页”更早被淘汰出缓冲池
+		
+		
+	缓冲池污染: 当某一个SQL语句，要批量扫描大量数据时，可能导致把缓冲池的所有页都替换出去，导致大量热数据被换出，MySQL性能急剧下降，这种情况叫缓冲池污染
+	
+	mysql LRU: 
+		1) 假设T=老生代停留时间窗口
+		2) 插入老生代头部的页，即使立刻被访问，并不会立刻放入新生代头部
+		3) 只有满足“被访问”并且“在老生代停留时间”大于T，才会被放入新生代头部
+		
+	innodb_buffer_pool_size: 配置缓冲池的大小，在内存允许的情况下，建议调大这个参数，越多数据和索引放到内存里，数据库的性能会越好
+	innodb_old_blocks_pct: 老生代占整个LRU链长度的比例，默认是37，即整个LRU中新生代与老生代长度比例是63:37
+	innodb_old_blocks_time: 老生代停留时间窗口，单位是毫秒，默认是1000，即同时满足“被访问”与“在老生代停留时间超过1秒”两个条件，才会被插入到新生代头部
+```
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6be0371901~tplv-t2oaga2asx-watermark.awebp)
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6be0b40dec~tplv-t2oaga2asx-watermark.awebp)
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6be0249553~tplv-t2oaga2asx-watermark.awebp)
+
+​																					**传统LRU**
+
+
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6be0470ed5~tplv-t2oaga2asx-watermark.awebp)
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6be06a8fc1~tplv-t2oaga2asx-watermark.awebp)
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6bf49c19c4~tplv-t2oaga2asx-watermark.awebp)
+
+​																			**Mysql LRU解决预读失效问题**
+
+
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6bf4aa4dbc~tplv-t2oaga2asx-watermark.awebp)
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6bf7ea6308~tplv-t2oaga2asx-watermark.awebp)
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6bf92f95ed~tplv-t2oaga2asx-watermark.awebp)
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6bfe072707~tplv-t2oaga2asx-watermark.awebp)
+
+​																	**Mysql LRU解决缓冲池污染问题**
 
 
 
@@ -334,11 +407,4 @@ mysql> update T set c=c+1 where ID=2;
 	varchar: 不定长, 范围是64k(64k是整行的长度, 需要考虑其他column)
 ```
 
-
-
-### 缓冲池 buffer pool
-
-```bash
-
-```
 
