@@ -326,9 +326,9 @@ mysql> update T set c=c+1 where ID=2;
 
 ```m
 1. buffer pool:
-	innodb内存结构:	buffer pool 缓冲池是主内存中的一个区域, 用于innodb访问表和索引数据时进行缓存. 缓冲池允许直接从内存中访问经常使用的数据, 从而加快处理速度. 一种常见的降低磁盘访问的机制, 通常以页为单位缓存数据, 常见管理算法是LRU(least recently used)[1].
+	innodb内存结构:	buffer pool 缓冲池是主内存中的一个区域, 用于innodb访问表和索引数据时进行缓存. 缓冲池允许直接从内存中访问经常使用的数据, 从而加快处理速度. 一种常见的降低磁盘访问的机制, 通常以页为单位缓存数据, 常见管理算法是LRU(least recently used).
 
-2. change buffer]
+2. change buffer
 	对于读请求, 缓冲池能够减少磁盘IO, 提升性能. 那写请求呢?
 	情况一: 要修改的数据刚好在缓冲池中,直接修改缓冲池中的数据,一次内存操作,再写入redo log, 一次io操作.
 	情况二: 要修改的数据不在缓冲池, 需要从磁盘中加载到内存中, 一次io操作, 修改缓冲池的页, 一次内存操作, 写入redo log, 一次io操作.
@@ -338,10 +338,47 @@ mysql> update T set c=c+1 where ID=2;
 	答: change buffer.
 	加入 change buffer后, 情况二变为: 在change buffer 中记录这个操作, 一次内存操作, 写入redo log, 一次io操作
 
+注1: 描述数据
+	当数据页被加载到缓冲池中后，Buffer Pool 中也有叫缓存页的概念与其一一对应，大小同样是 16KB，但是 MySQL还为每个缓存也开辟额外的一些空间，用来描述对应的缓存页的一些信息，例如：数据页所属的表空间，数据页号，这些描述数据块的大小大概是缓存页的5%左右（约800B）;【每个描述信息中有 free_pre、free_next 两个指针, Free链表 就是由这两个指针连接起来形成的一个双向链表。然后 Free链表 有一个基础节点，这个基础节点存放了链表的头节点地址、尾节点地址，以及当前链表中节点数的信息】
 
-注1: LRU, mysql的LRU和传统的LRU有所区别, 主要解决了 预读失效和缓冲池污染问题.
+注2: 缓存页是什么时候被创建的
+	当 MSql 启动的时候，就会初始化 Buffer Pool，这个时候 MySQL 会根据系统中设置的 innodb_buffer_pool_size 大小去内存中申请一块连续的内存空间，实际上在这个内存区域比配置的值稍微大一些，因为【描述数据】也是占用一定的内存空间的，当在内存区域申请完毕之后， MySql 会根据默认的缓存页的大小（16KB）和对应`缓存页*5%`大小(800B左右)的数据描述的大小，将内存区域划分为一个个的缓存页和对应的描述数据
+```
 
-	传统LRU: 把入缓冲池的页放到LRU的头部，作为最近访问的元素，从而最晚被淘汰。
+![](http://117.78.7.18/admin/uploads/d8aa0c2a-da0f-4f01-8dec-a0d6d20258ea.png)
+
+![](https://image-static.segmentfault.com/213/835/213835386-3ee266923478eaad_fix732)
+
+​																			**buffer pool**
+
+
+
+### buffer pool 的并发性能 & 动态调整buffer pool大小
+
+```
+	1. 并发性能:
+	Buffer Pool 一次只能允许一个线程来操作，一次只有一个线程来执行这一系列的操作，因为MySQL 为了保证数据的一致性，操作的时候必须缓存池加锁，一次只能有一个线程获取到锁, 所以 Buffer Pool 是可以有多个的, 可以通过配置mysql配置文件来配置:
+    #  Buffer Pool  的总大小
+    innodb_buffer_pool_size: 8589934592
+    #  Buffer Pool  的实例数（个数）
+    innodb_buffer_pool_instance: 4
+	
+	多个Buffer Pool带来的问题: 不同的Buffer Pool缓存中会去缓存相同的数据页吗? 答: 【数据页缓存哈希表】
+	
+	2. 如何动态调整大小? 【chunk机制】
+	chunk是 MySQL 设计的一种机制，这种机制的原理是将 Buffer Pool 拆分一个一个大小相等的 chunk 块，每个 chunk 默认大小为 128M（可以通过参数innodb_buffer_pool_chunk_size 来调整大小），也就是说 Buffer Pool 是由一个个的chunk组成的, 假设 Buffer Pool 大小是2GB，而一个chunk大小默认是128M，也就是说一个2GB大小的 Buffer Pool 里面由16个 chunk 组成，每个chunk中有自己的缓存页和描述数据，而 free 链表、flush 链表和 lru 链表是共享的
+```
+
+![](https://i2.wp.com/img-blog.csdnimg.cn/752c0667191f47c38b2f3bbdc6e04f91.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAT2NlYW4mJlN0YXI=,size_20,color_FFFFFF,t_70,g_se,x_16)
+
+
+
+### LRU链表
+
+```
+	LRU, mysql的LRU和传统的LRU有所区别, 主要解决了 预读失效和缓冲池污染问题.
+
+	传统LRU: 把加入缓冲池的页放到LRU的头部，作为最近访问的元素，从而最晚被淘汰。
 	这里又分两种情况： 
 	1）页已经在缓冲池里，那就只做“移至”LRU头部的动作，而没有页被淘汰；
 	2）页不在缓冲池里，除了做“放入”LRU头部的动作，还要做“淘汰”LRU尾部页的动作；
@@ -352,7 +389,7 @@ mysql> update T set c=c+1 where ID=2;
 	
 	mysql LRU: 
 		1) 将LRU分为两个部分(新生代new sublist, 老生代old sublist);
-		2) 新老生代收尾相连，即：新生代的尾(tail)连接着老生代的头(head);
+		2) 新老生代首尾相连，即：新生代的尾(tail)连接着老生代的头(head);
 		3) 新页（例如被预读的页）加入缓冲池时，只加入到老生代头部; 如果数据真正被读取（预读成功），才会加入到新生代的头部; 如果数据没有被读取，则会比新生代里的“热数据页”更早被淘汰出缓冲池
 		
 		
@@ -400,11 +437,46 @@ mysql> update T set c=c+1 where ID=2;
 
 
 
+### free 链表
+
+```free链表
+    用来存放空闲的缓存页的描述数据，如果某个缓存页被使用了，那么该缓存页对应的描述数据就会被从free链表中移除; 一个双向链表数据结构，这个链表的每个节点就是一个空闲缓存页的描述信息
+    
+注: 链表的基础节点占用的内存空间并不包含在 Buffer Pool 之内，而是单独申请的一块内存空间，每个基节点只占用40字节大小
+```
+
+![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e36431beec1745269b7673c84d2b56d5~tplv-k3u1fbpfcp-watermark.awebp)
+
+​																					**freee 链表**
+
+### Flush 链表
+
+```
+	被修改的脏数据都记录在 Flush 中，同时会有一个后台线程会不定时的将 Flush 中记录的描述数据对应的缓存页刷新到磁盘中，如果某个缓存页被刷新到磁盘中了，那么该缓存页对应的描述数据会从 Flush 中移除，同时也会从LRU链表中移除（因为该数据已经不在 Buffer Pool 中了，已经被刷入到磁盘，所以就也没必要记录在 LRU 链表中了），同时还会将该缓存页的描述数据添加到free链表中，因为该缓存页变得空闲了
+	
+	注: Flush链表也有一个基础节点，如果一个缓存页被修改了，就会加入到 Flush链表 中。但是不像 LRU链表 是从 Free链表 中来的，描述信息块中还有两个指针 flush_pre、flush_next用来连接形成 flush 链表，所以 Flush链表 中的缓存页一定是在 LRU 链表中的，而 LRU 链表中不在 Flush链表 中的缓存页就是未修改过的页, 脏页既存在于 LRU链表 中，也存在于 Flush链表 中。LRU链表 用来管理 Buffer Pool 中页的可用性，Flush链表 用来管理将页刷新回磁盘，二者互不影响。
+```
+
+![](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/53efe751907244d78f9588de4e6a6d37~tplv-k3u1fbpfcp-watermark.awebp)
+
+​																			**Flush 链表**
+
+
+
+### 缓存页哈希表
+
+```
+	有些数据页被加载到 Buffer Pool 的缓存页中了，那怎么知道一个数据页有没有被缓存呢？ 所以InnoDB还会有一个哈希表数据结构，它用 表空间号+数据页号 作key，value 就是缓存页的地址。当使用一个数据页的时候，会先通过表空间号+数据页号作为key去这个哈希表里查一下，如果没有就从磁盘读取数据页，如果已经有了，就直接使用该缓存页。
+```
+
+![](https://www.teqng.com/wp-content/uploads/2021/09/wxsync-2021-09-11654488abd8b04a5c4a7f7ac10772c7.png)
+
+
+
 ### char和varchar的区别
 
 ```
 	char: 定长, 不足长度的字符串在其后补空字符, 范围是0~255
 	varchar: 不定长, 范围是64k(64k是整行的长度, 需要考虑其他column)
 ```
-
 
