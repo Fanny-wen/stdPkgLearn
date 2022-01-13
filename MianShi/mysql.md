@@ -318,6 +318,9 @@ mysql> update T set c=c+1 where ID=2;
 1. 唯一索引和普通索引区别?
 	1):	普通索引可以重复, 唯一索引和主键一样不可以写入重复的值
 	2): 对于数据的修改, 普通索引可以使用change buffer, 而唯一索引不行
+
+2. 全文索引(FULLTEXT)
+	只有char, varchar, text列上可以创建, 为了解决WHERE name LIKE “%word%"这类针对文本的模糊查询效率较低的问题
 ```
 
 
@@ -476,7 +479,37 @@ mysql> update T set c=c+1 where ID=2;
 ### char和varchar的区别
 
 ```
-	char: 定长, 不足长度的字符串在其后补空字符, 范围是0~255
+	char: 定长, 不足长度的字符串在其后补空字符, 范围是0~255字节
 	varchar: 不定长, 范围是64k(64k是整行的长度, 需要考虑其他column)
 ```
+
+
+
+### blob & text
+
+```
+blob:
+	binary large object, 用于存储二进制大对象, 例如图片, 音视频.
+	
+	1) TINYBLOB 	0 - 255字节 	短文本二进制字符串
+ 	2) BLOB 		0 - 65KB 	 二进制字符串
+ 	3) MEDIUMBLOB 	0 - 16MB 	 二进制形式的长文本数据
+ 	4) LONGBLOB 	0 - 4GB 	 二进制形式的极大文本数据
+	
+text:
+	text 类型同 char、varchar 类似，都可用于存储字符串，一般情况下，遇到存储长文本字符串的需求时可以考虑使用 text 类型
+	1) TINYTEXT 	0 - 255字节 			一般文本字符串
+ 	2) TEXT 		0 - 65535字节 		长文本字符串
+	3) MEDIUMTEXT 	0 - 16772150字节 		较大文本数据
+	4) LONGTEXT 	0 - 4294967295字节 	极大文本数据
+
+    对比 varchar ，text 类型有以下特点：
+    1) text 类型无须指定长度。
+    2) 若数据库未启用严格的 sqlmode ，当插入的值超过 text 列的最大长度时，则该值会被截断插入并生成警告。
+    3) text 类型字段不能有默认值。
+    4) varchar 可直接创建索引，text 字段创建索引要指定前多少个字符。
+    5) text 类型检索效率比 varchar 要低
+```
+
+
 
