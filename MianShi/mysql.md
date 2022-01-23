@@ -310,6 +310,69 @@ mysql> update T set c=c+1 where ID=2;
 
 
 
+### binlog 写入机制
+
+```
+	事务执行过程中, 先把日志写入binlog cache, 等事务提交时, 再将binlog cache写入binlog文件中
+	
+	系统给binlog cache分配了一片内存，每个线程一个，参数 binlog_cache_size用于控制单个线程内binlog cache所占内存的大小。如果超过了这个参数规定的大小，就要暂存到磁盘
+
+	事务提交的时候，执行器把binlog cache里的完整事务写入到binlog中，并清空binlog cache
+	
+	每个线程有自己binlog cache，但是共用同一份binlog文件。
+	
+    图中的write，指的就是指把日志写入到文件系统的page cache，并没有把数据持久化到磁盘，所以速度比较快。
+    图中的fsync，才是将数据持久化到磁盘的操作。一般情况下，我们认为fsync才占磁盘的IOPS。
+    
+    write 和fsync的时机，是由参数sync_binlog控制的：
+    sync_binlog=0的时候，表示每次提交事务都只write，不fsync；
+    sync_binlog=1的时候，表示每次提交事务都会执行fsync；
+    sync_binlog=N(N>1)的时候，表示每次提交事务都write，但累积N个事务后才fsync。
+
+    因此，在出现IO瓶颈的场景里，将sync_binlog设置成一个比较大的值，可以提升性能。在实际的业务场景中，考虑到丢失日志量的可控性，一般不建议将这个参数设成0，比较常见的是将其设置为100~1000中的某个数值。
+
+    但是，将sync_binlog设置为N，对应的风险是：如果主机发生异常重启，会丢失最近N个事务的binlog日志
+```
+
+![](https://static001.geekbang.org/resource/image/9e/3e/9ed86644d5f39efb0efec595abb92e3e.png)
+
+​																				**binlog写盘状态**
+
+
+
+### redo log 写入机制
+
+```
+	redo log buffer 是一块内存，用来先存 redo 日志的。 真正把日志写到 redo log 文件（文件名是 ib_logfile+ 数字），是在执行 commit 语句的时候做的。
+
+	事务还没提交的时候，redo log buffer 中的部分日志有没有可能被持久化到磁盘呢？
+这个问题，要从 redo log 可能存在的三种状态说起。这三种状态，对应的就是图中的三个颜色块
+
+	这三种状态分别是：
+    存在 redo log buffer 中，物理上是在 MySQL 进程内存中，就是图中的红色部分；
+    写到磁盘 (write)，但是没有持久化（fsync)，物理上是在文件系统的 page cache 里面，也就是图中的黄色部分；
+    持久化到磁盘，对应的是 hard disk，也就是图中的绿色部分。
+    日志写到 redo log buffer 是很快的，wirte 到 page cache 也差不多，但是持久化到磁盘的速度就慢多了。为了控制 redo log 的写入策略，InnoDB 提供了 innodb_flush_log_at_trx_commit 参数，它有三种可能取值：
+
+    设置为 0 的时候，表示每次事务提交时都只是把 redo log 留在 redo log buffer 中 ;
+    设置为 1 的时候，表示每次事务提交时都将 redo log 直接持久化到磁盘；
+    设置为 2 的时候，表示每次事务提交时都只是把 redo log 写到 page cache。
+    InnoDB 有一个后台线程，每隔 1 秒，就会把 redo log buffer 中的日志，调用 write 写到文件系统的 page cache，然后调用 fsync 持久化到磁盘。
+
+    注意，事务执行中间过程的 redo log 也是直接写在 redo log buffer 中的，这些 redo log 也会被后台线程一起持久化到磁盘。也就是说，一个没有提交的事务的 redo log，也是可能已经持久化到磁盘的。
+
+    实际上，除了后台线程每秒一次的轮询操作外，还有两种场景会让一个没有提交的事务的 redo log 写入到磁盘中。
+
+    一种是，redo log buffer 占用的空间即将达到 innodb_log_buffer_size 一半的时候，后台线程会主动写盘。注意，由于这个事务并没有提交，所以这个写盘动作只是 write，而没有调用 fsync，也就是只留在了文件系统的 page cache。
+    另一种是，并行的事务提交的时候，顺带将这个事务的 redo log buffer 持久化到磁盘。假设一个事务 A 执行到一半，已经写了一些 redo log 到 buffer 中，这时候有另外一个线程的事务 B 提交，如果 innodb_flush_log_at_trx_commit 设置的是 1，那么按照这个参数的逻辑，事务 B 要把 redo log buffer 里的日志全部持久化到磁盘。这时候，就会带上事务 A 在 redo log buffer 里的日志一起持久化到磁盘。
+```
+
+![](https://static001.geekbang.org/resource/image/9d/d4/9d057f61d3962407f413deebc80526d4.png)
+
+​																				**redo log存储状态**
+
+
+
 ### 索引
 
 ```bash
