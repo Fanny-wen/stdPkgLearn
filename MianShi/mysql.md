@@ -336,7 +336,7 @@ mysql> update T set c=c+1 where ID=2;
 
 ![](https://static001.geekbang.org/resource/image/9e/3e/9ed86644d5f39efb0efec595abb92e3e.png)
 
-​																				**binlog写盘状态**
+​									**binlog写盘状态**
 
 
 
@@ -369,7 +369,7 @@ mysql> update T set c=c+1 where ID=2;
 
 ![](https://static001.geekbang.org/resource/image/9d/d4/9d057f61d3962407f413deebc80526d4.png)
 
-​																				**redo log存储状态**
+​									**redo log存储状态**
 
 
 
@@ -415,7 +415,7 @@ mysql> update T set c=c+1 where ID=2;
 
 ![](https://image-static.segmentfault.com/213/835/213835386-3ee266923478eaad_fix732)
 
-​																			**buffer pool**
+​										**buffer pool**
 
 
 
@@ -477,7 +477,7 @@ mysql> update T set c=c+1 where ID=2;
 
 ![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6be0249553~tplv-t2oaga2asx-watermark.awebp)
 
-​																					**传统LRU**
+​										 **传统LRU**
 
 
 
@@ -487,7 +487,7 @@ mysql> update T set c=c+1 where ID=2;
 
 ![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6bf49c19c4~tplv-t2oaga2asx-watermark.awebp)
 
-​																			**Mysql LRU解决预读失效问题**
+​								**Mysql LRU解决预读失效问题**
 
 
 
@@ -499,7 +499,7 @@ mysql> update T set c=c+1 where ID=2;
 
 ![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/6/25/16b8cf6bfe072707~tplv-t2oaga2asx-watermark.awebp)
 
-​																	**Mysql LRU解决缓冲池污染问题**
+​								 	**Mysql LRU解决缓冲池污染问题**
 
 
 
