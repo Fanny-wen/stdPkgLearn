@@ -4,7 +4,7 @@
 
 >redis是什么?
 
-Redis ( **Re**mote **Di**ctionary **S**erver ), 即远程字典服务
+Redis ( Remote Dictionary Server ), 即远程字典服务
 
 
 

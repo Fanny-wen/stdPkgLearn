@@ -790,6 +790,158 @@ seconds_behind_master的计算方法是这样的：
 
 
 
+### 数据库优化的几个阶段
+
+```bash
+第一阶段: 优化sql和索引
+	1. 选择合适的字段属性, 例如身份证为18位, 那么使用char(18)比varchar(255)要好
+	2. 尽量把字段设置为 NOT NULL, 这样在查询时可以不用比较null值
+	3. 对于某些文本字段来说, 例如"性别", "省份", 可以用枚举(ENUM)类型, 因为在mysql中, ENUM类型被当作数值型数据来处理
+	4. 使用连接(join)来代替子查询(Sub-Queries)
+	5. 避免使用函数索引
+
+第二阶段: 引入缓存数据库
+	1. 将复杂的、耗时的、不常变的执行结果缓存起来
+	
+第三阶段: 读写分离
+	1. 一主多从, 主从的好处: 实现数据库备份，实现数据库负载均衡，提高数据库可用性
+	2. 主从的原理: 主库和从库有长连接, 主库有一个线程把bin log发送给从库, 从库有一个线程把接收bin log写入relay log, 从库还有一个线程负责把relay log读取内容写入从库数据库
+	3. 如何解决主从一致性:
+		1). 半同步复制: 在主库写完binlog后需要从库返回一个已接收才返回给客户端
+		2). 数据库中间件: 所有读写都走中间件, 通常情况下, 写请求路由到主库, 读请求路由到从库
+			记录所有路由到写库的key, 在主从同步时间内, 如果有读请求访问中间件, 此时从库可能还是旧数据, 就			把这个key上的读请求路由到主库, 在主从同步时间过完后, 对应key的读请求继续路由到从库
+		3). 缓存记录写key法: 写流程, 如果key要发生写操作, 记录在cache里, 并设置"经验主从同步时间"的				cache的超时时间, 然后修改主库; 读流程, 先到缓存里查看, 对应key有没有相关数据, 有就说明命中			  缓存, 这个key刚发生了写操作, 此时需要路由到主库读数据, 如果没有命中缓存, 说明没有发生过写操			 作, 此时路由到从库, 继续读写分离
+
+第四阶段: 分库分表
+	1. 垂直拆分
+	2. 水平拆分
+
+```
+
+
+
+### inner join
+
+|  id  |   name   |
+| :--: | :------: |
+|  1   |  Google  |
+|  2   |   淘宝   |
+|  3   |   微博   |
+|  4   | Facebook |
+
+|  id  | name |
+| :--: | :--: |
+|  1   | 美国 |
+|  5   | 中国 |
+|  3   | 中国 |
+|  6   | 美国 |
+
+```mysql
+# 语法  INNER JOIN产生的结果集中，是1和2的交集。
+# select column_name(s)
+# from table 1
+# INNER JOIN table 2
+# ON
+# table 1.column_name=table 2.column_name
+
+select * 
+from Table A 
+inner join Table B
+on 
+Table A.id=Table B.id
+```
+
+|  id  |  name  | address |
+| :--: | :----: | :-----: |
+|  1   | Google |  美国   |
+|  3   |  微博  |  中国   |
+
+
+
+### left join
+
+```mysql
+# 语法  LEFT JOIN产生表1的完全集，而2表中匹配的则有值，没有匹配的则以null值取代。
+# select column_name(s)
+# from table 1
+# LEFT JOIN table 2
+# ON table 1.column_name=table 2.column_name
+
+select * 
+from Table A 
+left join Table B
+on Table A.id=Table B.id
+```
+
+|  id  |   name   | address |
+| :--: | :------: | :-----: |
+|  1   |  Google  |  美国   |
+|  2   |   淘宝   |  null   |
+|  3   |   微博   |  中国   |
+|  4   | Facebook |  null   |
+
+
+
+### right join
+
+```mysql
+# 语法  RIGHT JOIN产生表2的完全集，而1表中匹配的则有值，没有匹配的则以null值取代。
+# select column_name(s)
+# from table 1
+# RIGHT JOIN table 2
+# ON table 1.column_name=table 2.column_name
+
+select * 
+from Table A 
+right join Table B
+on Table A.id=Table B.id
+```
+
+|  id  |  name  | address |
+| :--: | :----: | :-----: |
+|  1   | Google |  美国   |
+|  5   |  null  |  中国   |
+|  3   |  微博  |  中国   |
+|  6   |  null  |  美国   |
+
+
+
+### full outer join
+
+```mysql
+# 语法  FULL OUTER JOIN产生1和2的并集。但是需要注意的是，对于没有匹配的记录，则会以null做为值。
+# select column_name(s)
+# from table 1
+# FULL OUTER JOIN table 2
+# ON table 1.column_name=table 2.column_name
+
+select * 
+from Table A 
+full outer join Table B
+on Table A.id=Table B.id
+```
+
+|  id  |   name   | address |
+| :--: | :------: | :-----: |
+|  1   |  Google  |  美国   |
+|  2   |   淘宝   |  null   |
+|  3   |   微博   |  中国   |
+|  4   | Facebook |  null   |
+|  5   |   null   |  美国   |
+|  6   |   null   |  美国   |
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
