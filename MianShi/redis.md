@@ -555,6 +555,71 @@ AOF日志采用写后日志，即先写内存，后写日志。
 
 
 
+> 如何实现AOF
+
+```bash
+AOF日志记录Redis的每个写命令，步骤分为：命令追加（append）、文件写入（write）和文件同步（sync）
+
+	1.命令追加 当AOF持久化功能打开了，服务器在执行完一个写命令之后，会以协议格式将被执行的写命令追加到服务器的 aof_buf 缓冲区。
+	2.文件写入和同步 关于何时将 aof_buf 缓冲区的内容写入AOF文件中，Redis提供了三种写回策略:
+		appendfsync always：将aof_buf缓冲区的所有内容写入并同步到AOF文件，每个写命令同步写入磁盘
+		appendfsync everysec：将aof_buf缓存区的内容写入AOF文件，每秒同步一次，该操作由一个线程专门负责
+		appendfsync no：将aof_buf缓存区的内容写入AOF文件，什么时候同步由操作系统来决定
+
+```
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/7/30/16c4345eae4aa6cd~tplv-t2oaga2asx-zoom-in-crop-mark:1304:0:0:0.awebp)
+
+
+
+> 深入理解AOF重写
+
+```bash
+	AOF会记录每个写命令到AOF文件，随着时间越来越长，AOF文件会变得越来越大。如果不加以控制，会对Redis服务器，甚至对操作系统造成影响，而且AOF文件越大，数据恢复也越慢。为了解决AOF文件体积膨胀的问题，Redis提供AOF文件重写机制来对AOF文件进行“瘦身”
+```
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/7/30/16c4345eb3719dac~tplv-t2oaga2asx-zoom-in-crop-mark:1304:0:0:0.awebp)
+
+```bash
+AOF重写会阻塞吗?
+
+	AOF重写过程是由后台进程bgrewriteaof来完成的。主线程fork出后台的bgrewriteaof子进程，fork会把主线程的内存拷贝一份给bgrewriteaof子进程，这里面就包含了数据库的最新数据。然后，bgrewriteaof子进程就可以在不影响主线程的情况下，逐一把拷贝的数据写成操作，记入重写日志。 所以aof在重写时，在fork进程时是会阻塞住主线程的
+```
+
+
+
+```bash'
+AOF日志何时会重写？
+
+	有两个配置项控制AOF重写的触发： 
+	auto-aof-rewrite-min-size:表示运行AOF重写时文件的最小大小，默认为64MB。 
+	auto-aof-rewrite-percentage:这个值的计算方式是，当前aof文件大小和上一次重写后aof文件大小的差值，再除以上一次重写后aof文件大小。也就是当前aof文件比上一次重写后aof文件的增量大小，和上一次重写后aof文件大小的比值。
+```
+
+
+
+```bash
+重写日志时，有新数据写入咋整？
+
+	重写过程总结为：“一个拷贝，两处日志”。在fork出子进程时的拷贝，以及在重写时，如果有新数据写入，主线程就会将命令记录到两个aof日志内存缓冲区中。如果AOF写回策略配置的是always，则直接将命令写回旧的日志文件，并且保存一份命令至AOF重写缓冲区，这些操作对新的日志文件是不存在影响的。（旧的日志文件：主线程使用的日志文件，新的日志文件：bgrewriteaof进程使用的日志文件）
+    而在bgrewriteaof子进程完成会日志文件的重写操作后，会提示主线程已经完成重写操作，主线程会将AOF重写缓冲中的命令追加到新的日志文件后面。这时候在高并发的情况下，AOF重写缓冲区积累可能会很大，这样就会造成阻塞，Redis后来通过Linux管道技术让aof重写期间就能同时进行回放，这样aof重写结束后只需回放少量剩余的数据即可。
+    最后通过修改文件名的方式，保证文件切换的原子性。 
+    在AOF重写日志期间发生宕机的话，因为日志文件还没切换，所以恢复数据时，用的还是旧的日志文件
+```
+
+![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/8/13/16530eac181d94c8~tplv-t2oaga2asx-zoom-in-crop-mark:1304:0:0:0.awebp)
+
+```
+主线程fork出子进程的是如何复制内存数据的？
+
+	fork采用操作系统提供的写时复制（copy on write）机制，就是为了避免一次性拷贝大量内存数据给子进程造成阻塞。fork子进程时，子进程时会拷贝父进程的页表，即虚实映射关系（虚拟内存和物理内存的映射索引表），而不会拷贝物理内存。这个拷贝会消耗大量cpu资源，并且拷贝完成前会阻塞主线程，阻塞时间取决于内存中的数据量，数据量越大，则内存页表越大。拷贝完成后，父子进程使用相同的内存地址空间
+	
+	但主进程是可以有数据写入的，这时候就会拷贝物理内存中的数据。如下图（进程1看做是主进程，进程2看做是子进程）
+	在主进程有数据写入时，而这个数据刚好在页c中，操作系统会创建这个页面的副本（页c的副本），即拷贝当前页的物理数据，将其映射到主进程中，而子进程还是使用原来的的页c
+```
+
+![](D:\GoProject\src\github.com\stdPkgLearn\MianShi\Static\redis-x-aof-3.png)
+
 
 
 
