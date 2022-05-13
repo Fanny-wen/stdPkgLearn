@@ -25,7 +25,7 @@ Redis ( Remote Dictionary Server ), 即远程字典服务
 有16个数据库
 ```
 
-清楚当前数据库 `flushdb`
+清除当前数据库 `flushdb`
 
 ```sql
 > flushdb
@@ -66,8 +66,8 @@ type [key]
 
 1. redis为什么这么快?
 2. redis中的多线程
-3. redis淘汰策略
-4. redis删除策略
+3. redis删除策略
+4. redis淘汰策略
 5. redis缓存一致性
 6. redis核心对象
 7. redis数据类型
@@ -104,19 +104,123 @@ type [key]
 
 
 
+### 3. redis删除策略
 
-
-### 3. redis淘汰策略
-
-> 博客链接: https://whetherlove.github.io/2018/10/05/Redis%E5%85%A5%E9%97%A8-%E8%BF%87%E6%9C%9F%E7%AD%96%E7%95%A5%E4%B8%8E%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E6%9C%BA%E5%88%B6/
-
-
+> 博客链接: https://www.cnblogs.com/ysocean/p/12422635.html
+>
+> 博客链接: https://developer.aliyun.com/article/666405
 
 
 
-### 4. redis删除策略
+> 定时删除
 
-> 博客链接: https://whetherlove.github.io/2018/10/05/Redis%E5%85%A5%E9%97%A8-%E8%BF%87%E6%9C%9F%E7%AD%96%E7%95%A5%E4%B8%8E%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E6%9C%BA%E5%88%B6/
+```bash
+创建一个定时器，当key设置有过期时间，且过期时间到达时，由定时器任务立即执行对键的删除操作
+
+优点：节省内存，到时就删除，快速释放掉不必要的内存空间
+
+缺点：CPU压力大，无论此时CPU过载有多高，都会占用CPU，会影响Redis服务器的响应时间和吞吐量
+
+总结：用处理器性能换取内存空间(时间换空间)
+```
+
+![](https://s4.51cto.com/oss/202108/02/886233cccac300380d3baab354674328.png)
+
+
+
+> 惰性删除
+
+```bash
+数据到达过期时间后，不做处理。等下次访问时，
+
+如果未过期，返回数据
+如果已过期，删除并返回不存在
+优点：节约CPU性能，发现必须删除时才删除
+
+缺点：内存压力大，出现长期占用内存空间的数据
+
+总结：用内存空间换取CPU处理性能(空间换时间)
+```
+
+![](https://s6.51cto.com/oss/202108/02/96509571892e959247873b956d449468.png)
+
+
+
+> 定期删除
+
+```bash
+每隔默认的 100 ms 随机抽取一些设置了过期时间的 key，检查是否过期，如果过期就删除
+
+特点： 
+	CPU占用设置有峰值，检测频度可以自定义
+	内存压力不是很大，长期占用内存的冷数据会被持续清理
+
+注: 为什么是100ms, Redis服务器启动初始化时，读取配置server.hz的值，默认为10, 意思是每秒运行10次
+```
+
+
+
+> redis过期删除策略
+
+```bash
+Redis的过期删除策略就是：惰性删除和定期删除两种策略配合使用。
+
+　　惰性删除：Redis的惰性删除策略由 db.c/expireIfNeeded 函数实现，所有键读写命令执行之前都会调用 expireIfNeeded 函数对其进行检查，如果过期，则删除该键，然后执行键不存在的操作；未过期则不作操作，继续执行原有的命令。
+
+　　定期删除：由redis.c/activeExpireCycle 函数实现，函数以一定的频率运行，每次运行时，都从一定数量的数据库中取出一定数量的随机键进行检查，并删除其中的过期键。
+
+　　注意：并不是一次运行就检查所有的库，所有的键，而是随机检查一定数量的键。
+
+　　定期删除函数的运行频率，在Redis2.6版本中，规定每秒运行10次，大概100ms运行一次。在Redis2.8版本后，可以通过修改配置文件redis.conf 的 hz 选项来调整这个次数。
+```
+
+
+
+
+
+### 4. redis淘汰策略
+
+> 博客链接: https://www.cnblogs.com/ysocean/p/12422635.html
+
+
+
+> 1. 设置Redis最大内存
+
+```bash
+
+在配置文件redis.conf 中，可以通过参数 maxmemory <bytes> 来设定最大内存：
+不设定该参数默认是无限制的，但是通常会设定其为物理内存的四分之三
+
+注: maxmermory：占用物理内存的比例。默认值是0，标识不限制。生产上根据需要设置，一般在50%以上 
+```
+
+> 2. 设置内存淘汰方式
+
+```bash
+当现有内存大于 maxmemory 时，便会触发redis主动淘汰内存方式，通过设置 maxmemory-policy ，有如下几种淘汰方式：
+
+　　1）volatile-lru   利用LRU算法移除设置过过期时间的key (LRU:最近使用 Least Recently Used ) 。
+
+　　2）allkeys-lru   利用LRU算法移除任何key （和上一个相比，删除的key包括设置过期时间和不设置过期时间的）。通常使用该方式。
+
+　　3）volatile-random 移除设置过过期时间的随机key 。
+
+　　4）allkeys-random  无差别的随机移除。
+
+　　5）volatile-ttl   移除即将过期的key(minor TTL) 
+
+　　6）noeviction 不移除任何key，只是返回一个写错误 ，默认选项，一般不会选用。
+　　
+注: maxmermroy-samples: 选取待删除的数据时，如果扫描全库，会严重消耗性能，降低读写性能。因为采用随机获取数据的方式作为待检测删除数据
+
+注: maxmermory-policy ：达到最大内存后，对被挑选出来的数据进行删除的策略 
+```
+
+
+
+> redis LRU实现
+>
+> 博客链接: https://segmentfault.com/a/1190000017555834
 
 
 
