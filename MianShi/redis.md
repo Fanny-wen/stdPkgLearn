@@ -84,6 +84,10 @@ type [key]
 
 
 
+<img src="https://s3.51cto.com/oss/202009/04/6039cd0b01a4b1b0de8397fdbfcca076.png" style="zoom: 150%;" />
+
+
+
 ### 1.为什么redis是单线程还这么快
 
 ```bash
@@ -940,11 +944,43 @@ BloomFilter 的算法是，首先分配一块内存空间做 bit 数组，数组
 
 ### 11.redis主从复制
 
+> 博客链接 https://segmentfault.com/a/1190000039242024
+>
+> https://www.51cto.com/article/700563.html
+>
+> https://www.cnblogs.com/kismetv/p/9236731.html
+
+
+
+```
+
+```
 
 
 
 
-### 12.redis事务
+
+
+
+
+
+### 12.redis哨兵机制
+
+>博客链接 https://www.cnblogs.com/kismetv/p/9609938.html
+
+
+
+```
+
+```
+
+
+
+
+
+
+
+### 16.redis事务
 
 > redis单条命令保持原子性, 但是事务不保证原子性
 >
