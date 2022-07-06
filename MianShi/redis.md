@@ -229,9 +229,13 @@ Redis的过期删除策略就是：惰性删除和定期删除两种策略配合
 
 
 
-> redis LRU实现
+> redis LRU、LFU实现
 >
 > 博客链接: https://segmentfault.com/a/1190000017555834
+>
+> https://zhuanlan.zhihu.com/p/105587132
+>
+> https://www.cnblogs.com/jiujuan/p/15765214.html
 
 
 
@@ -950,14 +954,6 @@ BloomFilter 的算法是，首先分配一块内存空间做 bit 数组，数组
 
 
 
-```
-
-```
-
-
-
-
-
 
 
 
@@ -968,15 +964,15 @@ BloomFilter 的算法是，首先分配一块内存空间做 bit 数组，数组
 
 
 
-```
 
-```
 
 
 
 ### 13.redis分片cluster
 
-> 博客链接 https://www.cnblogs.com/kismetv/p/9853040.html
+> 博客链接 https://mp.weixin.qq.com/s?__biz=MzI0NTE4NDg0NA==&mid=2247484101&idx=2&sn=770e9dd1b94d4c7d3342dd24697d0e7a&chksm=e95322e6de24abf0980008d898a0f261f1dbf6352ff26ef220f163fb053f88d093afb18f692f&cur_album_id=1725600385232322562&scene=189
+
+https://www.cnblogs.com/kismetv/p/9853040.html
 
 
 
@@ -1202,7 +1198,122 @@ cluster addslots命令接收一个槽或多个槽作为参数，例如在A节点
 
 
 
+#### 重定向
 
+> Redis cluster采用去中心化的架构，集群的主节点各自负责一部分槽，客户端如何确定key到底会映射到哪个节点上呢？这就是我们要讲的请求重定向。
+
+```
+在cluster模式下，节点对请求的处理过程如下： 
+	检查当前key是否存在当前NODE？
+		通过crc16（key）/16384计算出slot 
+		查询负责该slot负责的节点，得到节点指针 
+		该指针与自身节点比较
+    若slot不是由自身负责，则返回MOVED重定向 
+    若slot由自身负责，且key在slot中，则返回该key对应结果 
+    若key不存在此slot中，检查该slot是否正在迁出（MIGRATING）？ 
+    若key正在迁出，返回ASK错误重定向客户端到迁移的目的服务器上 
+    若Slot未迁出，检查Slot是否导入中？ 
+    若Slot导入中且有ASKING标记，则直接操作 
+    否则返回MOVED重定向
+```
+
+
+
+##### MOVED重定向
+
+```
+槽命中：直接返回结果
+槽不命中：即当前键命令所请求的键不在当前请求的节点中，则当前节点会向客户端发送一个Moved 重定向，客户端根据Moved 重定向所包含的内容找到目标节点，再一次发送命令
+```
+
+![](https://upload-images.jianshu.io/upload_images/10007098-7c1a117c179541f4.png?imageMogr2/auto-orient/strip|imageView2/2/w/1146/format/webp)
+
+
+
+
+
+##### ASK重定向
+
+```
+Ask重定向发生于集群伸缩时，集群伸缩会导致槽迁移，当我们去源节点访问时，此时数据已经可能已经迁移到了目标节点，使用Ask重定向来解决此种情况
+```
+
+![](https://upload-images.jianshu.io/upload_images/10007098-572b0de1d100d710.png?imageMogr2/auto-orient/strip|imageView2/2/w/943/format/webp)
+
+##### 区别
+
+```
+	两者都是以错误的方式告知客户端应该向其他节点发起目标请求；
+	
+	MOVED重定向：告知客户端当前哈希槽是由哪个节点负责，它是以哈希槽与节点的映射关系为基础的。如果客户端接收到此错误，可以直接更新本地的哈希槽与节点的映射关系缓存。这是一种相对稳定的状态。
+	
+	ASK重定向：告知客户端，它所请求的keys对应的哈希槽当前正在迁移至新的节点，当前节点已经无法完成请求，应该向新节点发起请求。客户端接收到此错误，将会临时（一次性）重定向，以询问（ASKING）的方式向新节点发起请求尝试。该错误不会影响接下来客户端对相同哈希槽的请求，除非它再次收到ASK重定向错误
+```
+
+
+
+
+
+#### 集群容错机制
+
+
+
+##### 心跳机制
+
+```
+	Redis Cluster作为无中心的分布式系统，集群容错机制依靠各个节点共同协作，在节点检测到某个节点故障时，通过传播节点故障并达成共识，然后触发一系列的从节点选举及故障转移工作。这一工作完成的基础是节点之间通过心跳机制对集群状态的维护。
+
+	下图是从节点A视角来看集群的状态示意图（仅绘制与集群容错有关的内容），myself指向A节点本身，它是节点A对自身状态的描述；nodes[B]指向节点B，它是从A节点来看B节点的状态；还有集群当前纪元、哈希槽与节点映射关系等
+```
+
+![](https://mmbiz.qpic.cn/mmbiz_png/mZx0iasykfludFKbshMgdOJDSia508reVt6dM6r6D9UQXF9H5hmjmtYv9JtgiaYdtxIZRTXmStmZ8HYUEpZicRJSaQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+```
+	在集群中，每两个节点之间通过PING和PONG两种类型的消息保持心跳，由前文可知这两种消息采用完全相同的结构（消息头和消息体都相同），仅消息头中的type字段不同，我们称这个消息对为心跳消息。
+
+	PING/PONG消息头包含了消息源节点的配置纪元（configEpoch）、复制偏移量（offset）、节点名称（sender）、负责的哈希槽（myslots）、节点状态（flags）等，这些内容与目标节点所维护的nodes中节点信息一一对应；另外还包含在源节点看来集群纪元（currentEpoch）、集群状态（state）。
+	PING/PONG消息体包含若干clusterMsgDataGossip，每个clusterMsgDataGossip对应一个集群节点状态，它描述了源节点与之的心跳状态及源节点对它运行状态的判断。
+	
+	心跳消息在集群节点两两之间以“我知道的给你，你知道的给我”这样“瘟疫传播”的方式传播、交换信息，可以保证在短时间内节点状态达成一致
+```
+
+
+
+##### 故障发现和恢复(failover)
+
+###### 故障发现
+
+```
+超过超时时间仍然没有收到pong包的节点会被当前节点标记为PFAIL 
+
+PFAIL标记会随着gossip传播 
+
+每次收到心跳包会检测其中对其他节点的PFAIL标记，当做对该节点FAIL的投票维护在本机 
+
+对某个节点的PFAIL标记达到大多数时，将其变为FAIL标记并广播FAIL消息
+```
+
+
+
+###### 故障恢复
+
+```
+	当slave发现自己的master变为FAIL状态时，便尝试进行Failover，以期成为新的master。由于挂掉的master可能会有多个slave。Failover的过程需要经过类Raft协议的过程在整个集群内达到一致， 其过程如下： 
+
+	slave发现自己的master变为FAIL 
+	
+	将自己记录的集群currentEpoch加1，并广播Failover Request信息 
+	
+	其他节点收到该信息，只有master响应，判断请求者的合法性，并发送FAILOVER_AUTH_ACK，对每一个epoch只发送一次ack 
+	
+	尝试failover的slave收集FAILOVER_AUTH_ACK 
+	
+	超过半数后变成新Master 
+	
+	广播Pong通知其他集群节点
+```
+
+![](..\MianShi\Static\redis-cluster-2.png)
 
 
 
